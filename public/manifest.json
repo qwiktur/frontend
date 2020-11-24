@@ -1,0 +1,6 @@
+{
+  "short_name": "Qwiktur",
+  "name": "Enigma Quizz Game",
+  "start_url": ".",
+  "display": "standalone"
+}
