@@ -1,5 +1,3 @@
-import { timeStamp } from "console"
-
 /**
  * Timestamps interface.
  * 
@@ -71,6 +69,14 @@ export interface UserData extends TimeStamps {
     elo: number
 }
 
+/**
+ * Error data interface.
+ */
+export interface ErrorData {
+    error: ErrorCode;
+    error_description: string;
+}
+
 export enum Language {
     FR = 'Français', EN = 'Anglais', DE = 'Allemand'
 }
@@ -78,3 +84,21 @@ export enum Language {
 export enum Role {
     USER = 'Utilisateur', MODO = 'Modérateur', ADMIN = 'Administrateur'
 }
+
+/**
+ * Error code type.
+ */
+export type ErrorCode =
+      'access_denied'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'invalid_request'
+    | 'invalid_scope'
+    | 'network_error'
+    | 'not_found'
+    | 'server_error'
+    | 'temporarily_unavailable'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'unsupported_response_type'
+    | 'validation_failed';
