@@ -1,0 +1,111 @@
+import { useReducer, Reducer } from 'react';
+import axios, { AxiosRequestConfig, AxiosError } from 'axios';
+import { Response } from '../util/types/response-types';
+import fetchReducer, { FetchReducerState, FetchReducerAction } from '../reducers/fetch-reducer';
+import { LocalStorageKey } from '../util/local-storage';
+
+/**
+ * Query interface.
+ */
+export interface Query {
+    get: (url?: string, config?: AxiosRequestConfig) => Promise<void>;
+    post: (url?: string, body?: unknown, config?: AxiosRequestConfig) => Promise<void>;
+    put: (url?: string, body?: unknown, config?: AxiosRequestConfig) => Promise<void>;
+    patch: (url?: string, body?: unknown, config?: AxiosRequestConfig) => Promise<void>;
+    delete: (url?: string, config?: AxiosRequestConfig) => Promise<void>;
+    reset: () => void;
+}
+
+/**
+ * Fetch hook.
+ * 
+ * This hook can make API calls and returns a response with the status of the query (`fetched`), the response data (`data`) and errors if returned (`errors`).
+ * 
+ * @param baseUrl URL processed with the returned hook instance
+ * @param authenticated If true, the access token stored in the local storage will be automatically added in the request header `x-access-token`
+ * @returns Array with the hook state to retrieve data / errors and the hook query to make API calls to the given URL
+ */
+const useFetch = <R extends Response>(baseUrl?: string, authenticated: boolean = true): [FetchReducerState<R>, Query] => {
+    const [state, dispatch] = useReducer<Reducer<FetchReducerState<R>, FetchReducerAction<R>>>(fetchReducer, { fetched: false, data: null, errors: [] });
+
+    const query: Query = {
+        get: async (url?: string, config?: AxiosRequestConfig) => {
+            dispatch({ type: 'INIT' });
+            try {
+                const res = await axios.get<R>(url || baseUrl, authenticated ? addAccessTokenInConfiguration(config) : config);
+                dispatch({ type: 'SUCCESS', payload: res.data });
+            } catch (err) {
+                if (err.message === 'Network Error') {
+                    dispatch({ type: 'ERROR', payload: [{ error: 'network_error', error_description: 'Impossible de se connecter au serveur' }] })
+                } else {
+                    dispatch({ type: 'ERROR', payload: (err as AxiosError).response.data.errors });
+                }
+            }
+        },
+        post: async (url?: string, body?: unknown, config?: AxiosRequestConfig) => {
+            dispatch({ type: 'INIT' });
+            try {
+                const res = await axios.post<R>(url || baseUrl, body, authenticated ? addAccessTokenInConfiguration(config) : config);
+                dispatch({ type: 'SUCCESS', payload: res.data });
+            } catch (err) {
+                if (err.message === 'Network Error') {
+                    dispatch({ type: 'ERROR', payload: [{ error: 'network_error', error_description: 'Impossible de se connecter au serveur' }] })
+                } else {
+                    dispatch({ type: 'ERROR', payload: (err as AxiosError).response.data.errors });
+                }
+            }
+        },
+        put: async (url?: string, body?: unknown, config?: AxiosRequestConfig) => {
+            dispatch({ type: 'INIT' });
+            try {
+                const res = await axios.put<R>(url || baseUrl, body, authenticated ? addAccessTokenInConfiguration(config) : config);
+                dispatch({ type: 'SUCCESS', payload: res.data });
+            } catch (err) {
+                if (err.message === 'Network Error') {
+                    dispatch({ type: 'ERROR', payload: [{ error: 'network_error', error_description: 'Impossible de se connecter au serveur' }] })
+                } else {
+                    dispatch({ type: 'ERROR', payload: (err as AxiosError).response.data.errors });
+                }
+            }
+        },
+        patch: async (url?: string, body?: unknown, config?: AxiosRequestConfig) => {
+            dispatch({ type: 'INIT' });
+            try {
+                const res = await axios.patch<R>(url || baseUrl, body, authenticated ? addAccessTokenInConfiguration(config) : config);
+                dispatch({ type: 'SUCCESS', payload: res.data });
+            } catch (err) {
+                if (err.message === 'Network Error') {
+                    dispatch({ type: 'ERROR', payload: [{ error: 'network_error', error_description: 'Impossible de se connecter au serveur' }] })
+                } else {
+                    dispatch({ type: 'ERROR', payload: (err as AxiosError).response.data.errors });
+                }
+            }
+        },
+        delete: async (url?: string, config?: AxiosRequestConfig) => {
+            dispatch({ type: 'INIT' });
+            try {
+                const res = await axios.delete<R>(url || baseUrl, authenticated ? addAccessTokenInConfiguration(config) : config);
+                dispatch({ type: 'SUCCESS', payload: res.data });
+            } catch (err) {
+                if (err.message === 'Network Error') {
+                    dispatch({ type: 'ERROR', payload: [{ error: 'network_error', error_description: 'Impossible de se connecter au serveur' }] })
+                } else {
+                    dispatch({ type: 'ERROR', payload: (err as AxiosError).response.data.errors });
+                }
+            }
+        },
+        reset: () => dispatch({ type: 'INIT' })
+    }
+
+    function addAccessTokenInConfiguration(config: AxiosRequestConfig = {}) {
+        config.headers = {
+            ...config.headers,
+            'x-access-token': localStorage.getItem(LocalStorageKey.ACCESS_TOKEN)
+        };
+        return config;
+    }
+
+    return [state, query];
+};
+
+export default useFetch;
