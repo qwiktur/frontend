@@ -6,3 +6,6 @@
 
 # ESLint
 .eslintcache
+
+#Tailwind
+/src/tailwind.output.css
