@@ -1,11 +1,26 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AuthenticationProvider from './context-providers/authentication-provider';
+import { HomePage } from './home-page/home-page';
+import { Navbar } from './navbar/navbar';
 
 const App: React.FC = () => {
-    return (
-      <div className="App">
-        <input className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal m-10" type="email" placeholder="jane@example.com" />
-      </div>
-    )
-  }
+  return (
+    <AuthenticationProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Navbar />
+            <HomePage />
+          </Route>
+          <Route exact path="/backoffice">
+            <Navbar />
+            <HomePage />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </AuthenticationProvider>
+  )
+}
 
 export default App;
