@@ -1,8 +1,8 @@
-import React, { useContext } from "react"
-import { Link } from "react-router-dom";
-import AuthenticationContext from "../../contexts/authentication-context";
-import ConnectionContainer from "./connection-container";
-import { LogoutButton } from "./logout-button";
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
+import AuthenticationContext from '../../contexts/authentication-context';
+import ConnectionContainer from './connection-container';
+import { LogoutButton } from './logout-button';
 
 export const Navbar: React.FC = () => {
     const authContext = useContext(AuthenticationContext);

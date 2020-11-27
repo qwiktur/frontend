@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import React, { useState, useContext } from 'react';
-import AuthenticationContext from "../../contexts/authentication-context";
+import AuthenticationContext from '../../contexts/authentication-context';
 import useFetch from '../../hooks/fetch-hook';
 import { Config } from '../../util/config';
 import { SignInResponse, SignUpResponse, UserInfoResponse } from '../../util/types/response-types';
