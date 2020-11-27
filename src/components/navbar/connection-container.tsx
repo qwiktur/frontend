@@ -123,7 +123,7 @@ const ConnectionContainer: React.FC = () => {
         <Formik
             initialValues={{ name: '', password: '' }}
             validationSchema={signInFormValidationSchema}
-            onSubmit={() => console.log('t')}
+            onSubmit={handleSubmitSignInForm}
         >
             {({ handleSubmit, handleChange, values }) => (
                 <form noValidate onSubmit={handleSubmit}>
@@ -160,21 +160,21 @@ const ConnectionContainer: React.FC = () => {
                                 </div>
                                 {/*footer*/}
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                                    <button className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                                        <a onClick={() => setShowModalSignIn(false)}
+                                    <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                                        <button onClick={() => setShowModalSignIn(false)}
                                             className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
-                                            Fermer</a>
-                                    </button>
-                                    <button className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                                        <a onClick={handleToggleSignUpModal}
+                                            Fermer</button>
+                                    </div>
+                                    <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                                        <button onClick={handleToggleSignUpModal}
                                             className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
-                                            S'inscrire</a>
-                                    </button>
-                                    <button type="submit" className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                                        <a className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
+                                            S'inscrire</button>
+                                    </div>
+                                    <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                                        <button type="submit" className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
                                             Se connecter
-                                            </a>
-                                    </button>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
