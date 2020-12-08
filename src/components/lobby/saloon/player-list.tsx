@@ -3,7 +3,7 @@ import PlayerCard from './player-card'
 
 function PlayerList(): JSX.Element {
   return (
-    <div className="min-h-screen flex-1 flex justify-center items-center">
+    <div className="flex-1 flex justify-center items-center">
       <div className="bg-white w-full rounded-lg shadow">
         <div className="h-12 flex justify-between items-center border-b border-gray-200 m-4">
           {/* Title of lobby */}

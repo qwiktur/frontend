@@ -2,7 +2,7 @@ import React from 'react'
 
 function GamePanel(): JSX.Element {
   return (
-    <div className="min-h-screen flex-1 p-4 flex justify-center items-center">
+    <div className="flex-1 p-4 flex justify-center items-center">
       <div className="bg-white w-full md:max-w-4xl rounded-lg shadow">
         <div className="h-12 flex justify-between items-center border-b border-gray-200 m-4">
           {/* Title */}

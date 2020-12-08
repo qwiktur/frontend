@@ -8,7 +8,7 @@ export const Navbar: React.FC = () => {
     const authContext = useContext(AuthenticationContext);
 
     return (
-        <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
+        <div className="relative pt-6 px-4 sm:px-6 lg:px-8 pb-4 rounded-lg shadow-md bg-white">
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
@@ -25,11 +25,11 @@ export const Navbar: React.FC = () => {
                 </div>
 
                 {(authContext.isAuthenticated && authContext.authUser.role === 'Administrateur') && (
-                    <div className=" md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
                         <Link to="/backoffice">
-                            <a href="#" className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
-                                Déconnxeion
-                            </a>
+                            <div className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
+                                Déconnexion
+                            </div>
                         </Link>
                     </div>
                 )}
