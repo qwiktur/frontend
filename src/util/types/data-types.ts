@@ -78,7 +78,7 @@ export interface ErrorData {
 }
 
 export enum Language {
-    FR = 'Français', EN = 'Anglais', DE = 'Allemand'
+    FR = 'Français', EN = 'English', DE = 'Deutsch'
 }
 
 export enum Role {

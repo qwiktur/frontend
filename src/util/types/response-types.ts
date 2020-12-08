@@ -31,7 +31,7 @@ export interface UserInfoResponse extends Response {
  * This API response is returned by `POST /auth/signin`.
  */
 export interface SignInResponse extends Response {
-    access_token: string;
+    accessToken: string;
     refresh_token: string;
 }
 
@@ -41,6 +41,6 @@ export interface SignInResponse extends Response {
  * This API response is returned by `POST /auth/signup`.
  */
 export interface SignUpResponse extends Response {
-    access_token: string;
+    accessToken: string;
     refresh_token: string;
 }
