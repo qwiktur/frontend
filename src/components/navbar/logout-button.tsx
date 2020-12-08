@@ -11,7 +11,6 @@ export const LogoutButton: React.FC = () => {
     const handleLogout = () => {
         userContext.setAuthUser(null);
         localStorage.removeItem(LocalStorageKey.ACCESS_TOKEN);
-        localStorage.removeItem(LocalStorageKey.REFRESH_TOKEN);
     }
 
     return (
