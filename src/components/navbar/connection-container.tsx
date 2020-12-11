@@ -51,7 +51,7 @@ const ConnectionContainer: React.FC = () => {
             handleToggleSignUpModal();
         }
     });
-     
+
     useEffect(() => {
         if (userInfoQueryState.fetched && userInfoQueryState.data != null) {
             userContext.setAuthUser(userInfoQueryState.data.user);
@@ -278,8 +278,8 @@ const ConnectionContainer: React.FC = () => {
     )
     return (
         <>
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                <a onClick={handleToggleSignInModal} className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
+            <div className="cursor-pointer hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                <a onClick={handleToggleSignUpModal} className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
                     Se connecter
                 </a>
             </div>
