@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
-import { Link } from "react-router-dom";
 import AuthenticationContext from "../../contexts/authentication-context";
+import { BackOfficeButton } from "../back-office/backoffice-button";
 import ConnectionContainer from "./connection-container";
 import { LogoutButton } from "./logout-button";
 
@@ -24,17 +24,8 @@ export const Navbar: React.FC = () => {
                     <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500"></a>
                 </div>
 
-                {(authContext.isAuthenticated && authContext.authUser.role === 'Administrateur') && (
-                    <div className=" md:flex items-center justify-end md:flex-1 lg:w-0">
-                        <Link to="/backoffice">
-                            <a href="#" className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
-                                Déconnxeion
-                            </a>
-                        </Link>
-                    </div>
-                )}
-                {authContext.isAuthenticated ? <LogoutButton /> : <ConnectionContainer />}
-
+                {(authContext.isAuthenticated && authContext.authUser.role == 'admin') ? <BackOfficeButton /> : null}
+                {authContext.isAuthenticated ? <LogoutButton /> : <ConnectionContainer />}                
             </nav>
         </div >
     )
