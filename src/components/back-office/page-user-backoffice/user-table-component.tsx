@@ -1,5 +1,5 @@
-import React from "react"
-import { UserData } from "../../../util/types/data-types";
+import React from 'react';
+import { UserData } from '../../../util/types/data-types';
 
 interface TableProps {
     users: UserData[];
@@ -10,7 +10,7 @@ interface TableProps {
  */
 export const TableComponent: React.FC<TableProps> = ({ users }) => (
     <table className="min-w-full">
-        <thead>
+        {users ? <thead>
             <tr>
                 <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-green-light tracking-wider">N°</th>
                 <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-green-light tracking-wider">E-mail</th>
@@ -21,9 +21,10 @@ export const TableComponent: React.FC<TableProps> = ({ users }) => (
                 <th className="px-6 py-3 border-b-2 border-gray-300"></th>
             </tr>
         </thead>
+            : null}
         <tbody className="bg-white">
-            {users ? users.map((user, i) => {
-                <tr key={user.id}>
+            {users ? users.map((user, i) => (
+                <tr key={i}>
                     <td className="px-6 py-4 whitespace-no-wrap border-b text-green-light border-gray-500 text-sm leading-5">{i + 1}</td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                         <div className="text-sm leading-5 text-green-light">{user.email}</div>
@@ -39,8 +40,12 @@ export const TableComponent: React.FC<TableProps> = ({ users }) => (
                         </span>
                     </td>
                 </tr>
-            }) : <p>Vous n'avez pas d'utilisateurs.</p>}
-
+            ))
+                : <tr>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div className="text-sm leading-5 text-green-light">Vous n'avez pas d'utilisateurs.</div>
+                    </td>
+                </tr>}
         </tbody>
     </table>
 )
