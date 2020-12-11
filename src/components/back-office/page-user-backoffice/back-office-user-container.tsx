@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import useFetch from '../../hooks/fetch-hook';
-import { Config } from '../../util/config';
+import useFetch from '../../../hooks/fetch-hook';
+import { Config } from '../../../util/config';
 import { SearchBarComponent } from './searchbar-component';
 import { TableComponent } from './table-component';
-import { UsersResponse } from '../../util/types/response-types';
+import { UsersResponse } from '../../../util/types/response-types';
 import { NumberUserComponent } from './number-user-component';
 
 export const BackOfficeUserPage: React.FC = () => {

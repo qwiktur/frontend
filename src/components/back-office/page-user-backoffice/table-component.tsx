@@ -1,5 +1,5 @@
 import React from "react"
-import { UserData } from "../../util/types/data-types";
+import { UserData } from "../../../util/types/data-types";
 
 interface TableProps {
     users: UserData[];
