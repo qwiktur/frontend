@@ -17,15 +17,6 @@ export interface ErrorResponse extends Response {
 }
 
 /**
- * User informations response data interface.
- * 
- * This API response is returned by `GET /users/userinfo`.
- */
-export interface UserInfoResponse extends Response {
-    user: UserData;
-}
-
-/**
  * Signin response data interface.
  * 
  * This API response is returned by `POST /auth/signin`.
@@ -43,4 +34,22 @@ export interface SignInResponse extends Response {
 export interface SignUpResponse extends Response {
     accessToken: string;
     refresh_token: string;
+}
+
+/**
+ * User informations response data interface.
+ * 
+ * This API response is returned by `GET /users/userinfo`.
+ */
+export interface UserInfoResponse extends Response {
+    user: UserData;
+}
+
+/**
+ * User informations response data interface.
+ * 
+ * This API response is returned by `GET /users/userinfo`.
+ */
+export interface UsersResponse extends Response {
+    users: UserData[];
 }
