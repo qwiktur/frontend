@@ -6,7 +6,6 @@ import useFetch from '../../hooks/fetch-hook';
 import { Config } from '../../util/config';
 import { SignInResponse, SignUpResponse, UserInfoResponse } from '../../util/types/response-types';
 import { LocalStorageKey } from '../../util/local-storage';
-// import APIErrorAlert from '../util/api-error-alert'; TODO Gestion des erreurs après l'insrciption ou la connexion
 
 /**
  * Valeur utilisé pour le formulaire de connection.
@@ -32,7 +31,7 @@ const ConnectionContainer: React.FC = () => {
     const [showModalSignUp, setShowModalSignUp] = useState(false);
     const [signInQueryState, signInQuery] = useFetch<SignInResponse>(`${Config.API_URL}/auth/login`);
     const [signUpQueryState, signUpQuery] = useFetch<SignUpResponse>(`${Config.API_URL}/auth/signup`);
-    const [userInfoQueryState, userInfoQuery] = useFetch<UserInfoResponse>(`${Config.API_URL}/users/info`, true);
+    const [userInfoQueryState, userInfoQuery] = useFetch<UserInfoResponse>(`${Config.API_URL}/users/info`);
 
     useEffect(() => {
         if (signInQueryState.fetched && signInQueryState.data != null) {
