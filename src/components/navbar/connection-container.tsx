@@ -6,14 +6,7 @@ import useFetch from '../../hooks/fetch-hook';
 import { Config } from '../../util/config';
 import { SignInResponse, SignUpResponse, UserInfoResponse } from '../../util/types/response-types';
 import { LocalStorageKey } from '../../util/local-storage';
-
-/**
- * Valeur utilisé pour le formulaire de connection.
- */
-interface SignInFormValues {
-    email: string;
-    password: string;
-}
+import { SignInFormValues } from '../../util/types/form-data-types';
 
 /**
  * Valeur utilisé pour le formulaire d'inscription.
