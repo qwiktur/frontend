@@ -21,7 +21,6 @@ export const BackOfficeUserContainer: React.FC = () => {
      */
     const handleChangeSearchUser = (value: string) => {
         setSearch(value);
-        console.log(search);
     }
 
     return (
@@ -29,7 +28,9 @@ export const BackOfficeUserContainer: React.FC = () => {
             <SearchBarComponent onSearchUser={handleChangeSearchUser} />  {/* Barre de recherche */}
 
             <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
-                <TableComponent users={usersQueryState.fetched ? usersQueryState.data.users : []} />
+                <TableComponent users={usersQueryState.fetched ?
+                    usersQueryState.data.users.filter(user => user.email.includes(search) || user.username.includes(search))
+                    : []} />
 
                 <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
                     <NumberUserComponent countUsers={usersQueryState.fetched ? usersQueryState.data.users.length : null} />
