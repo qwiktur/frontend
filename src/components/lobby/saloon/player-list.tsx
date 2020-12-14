@@ -8,8 +8,8 @@ function PlayerList(): JSX.Element {
         <div className="h-12 flex justify-between items-center border-b border-gray-200 m-4">
           {/* Title of lobby */}
           <div>
-            <div className="text-xl font-bold text-gray-700">Miki Lobby</div>
-            <div className="text-sm font-base text-gray-500">Waiting for more players...</div>
+            <div className="text-xl font-bold text-gray-700">Lobby de Miki</div>
+            <div className="text-sm font-base text-gray-500">En attente de joueurs...</div>
           </div>
           {/*Toggle private / public */}
           <div>
@@ -44,7 +44,7 @@ function PlayerList(): JSX.Element {
           <PlayerCard img="https://cdn.discordapp.com/avatars/147421804632211456/898744aeac115d06b139fad907656c20.webp?size=128" username="Jeremy" />
         </div>
         <div className="p-6 ">
-          <button className="p-4 bg-green-400 hover:bg-green-500 w-full rounded-lg shadow text-xl font-medium uppercase text-white">Start the game</button>
+          <button className="p-4 bg-green-400 hover:bg-green-500 w-full rounded-lg shadow text-xl font-medium uppercase text-white">Jouer</button>
         </div>
       </div>
     </div>

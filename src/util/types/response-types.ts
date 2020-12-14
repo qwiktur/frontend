@@ -1,4 +1,4 @@
-import { ErrorData, UserData } from './data-types';
+import { ErrorData, ThemeData, UserData } from './data-types';
 
 /**
  * Base API response data interface.
@@ -44,3 +44,22 @@ export interface SignUpResponse extends Response {
     accessToken: string;
     refresh_token: string;
 }
+
+/**
+ * Create game response data interface.
+ * 
+ * This API response is returned by `POST /games`.
+ */
+export interface CreateGameResponse extends Response {
+    id: string;
+}
+
+/**
+ * Get themes response data interface.
+ * 
+ * This API response is returned by `POST /games`.
+ */
+export interface GetThemesResponse extends Response {
+    themes: ThemeData[]
+}
+
