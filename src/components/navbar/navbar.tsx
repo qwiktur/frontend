@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom";
 import AuthenticationContext from "../../contexts/authentication-context";
-import { DropdownBackOffice } from "../back-office/backoffice-dropdown";
+import { DropdownBackOffice } from "./backoffice-dropdown";
 import ConnectionContainer from "./connection-container";
 import { LogoutButton } from "./logout-button";
 
