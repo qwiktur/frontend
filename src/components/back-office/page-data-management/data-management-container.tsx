@@ -7,7 +7,7 @@ import { DropdownData } from './dropdown';
 import { ImageData, ThemeData } from '../../../util/types/data-types';
 import { ImageFormData, ThemeFormData } from '../../../util/types/form-data-types';
 import { ImageModal } from './image/image-modal';
-import { ImageResponse, QuestionResponse, ThemeResponse } from '../../../util/types/response-types';
+import { ImageResponse, QuestionResponse, ThemesResponse } from '../../../util/types/response-types';
 import { ImageTableComponent } from './image/image-table-component';
 import { QuestionTableComponent } from './question/question-table-component';
 import { ThemeModal } from './theme/theme-modal';
@@ -21,7 +21,7 @@ export const DataManagementContainer: React.FC = () => {
     const [imageQueryState, imageQuery] = useFetch<ImageResponse>(`${Config.API_URL}/images`);
     const [imageUpdateQueryState, imageUpdateQuery] = useFetch(`${Config.API_URL}/images`);
     const [questionQueryState, questionQuery] = useFetch<QuestionResponse>(`${Config.API_URL}/questions`);
-    const [themeQueryState, themeQuery] = useFetch<ThemeResponse>(`${Config.API_URL}/themes`);
+    const [themeQueryState, themeQuery] = useFetch<ThemesResponse>(`${Config.API_URL}/themes`);
     const [themeUpdateQueryState, themeUpdateQuery] = useFetch(`${Config.API_URL}/themes`);
     const [image, setImage] = useState<ImageData>(null);
     const [theme, setTheme] = useState<ThemeData>(null);

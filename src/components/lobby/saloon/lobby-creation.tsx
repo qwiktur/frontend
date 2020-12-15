@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import useFetch from '../../../hooks/fetch-hook';
 import { Config } from '../../../util/config';
 import { ThemeData } from '../../../util/types/data-types';
-import { CreateGameResponse, GetThemesResponse } from '../../../util/types/response-types';
+import { CreateGameResponse, ThemesResponse } from '../../../util/types/response-types';
 import SelectOptionGame from './select-option-game';
 
 const LobbyCreation: React.FC = () => {
@@ -21,7 +21,7 @@ const LobbyCreation: React.FC = () => {
   }, []);
 
   const [createGameQueryState, createGameQuery] = useFetch<CreateGameResponse>(`${Config.API_URL}/games`, true);
-  const [getThemesQueryState, getThemesQuery] = useFetch<GetThemesResponse>(`${Config.API_URL}/themes`, true);
+  const [getThemesQueryState, getThemesQuery] = useFetch<ThemesResponse>(`${Config.API_URL}/themes`, true);
   const [showModalCreateGame, setShowModalCreateGame] = useState(false);
   const [themes, setThemes] = useState<ThemeData[]>([]);
   const [formTheme, setFormTheme] = useState<ThemeData>({ id:'', name: '', createdAt:'', updatedAt:''});
