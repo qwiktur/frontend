@@ -4,6 +4,7 @@ import { BackOfficeUserContainer } from './back-office/page-user-backoffice/back
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { DataManagementContainer } from './back-office/page-data-management/data-management-container';
 import { HomePage } from './home-page/home-page';
+import Wrapper from './lobby/wrapper';
 import { Navbar } from './navbar/navbar';
 
 const App: React.FC = () => {
@@ -22,6 +23,9 @@ const App: React.FC = () => {
           <Route exact path="/backoffice/users">
             <Navbar />
             <BackOfficeUserContainer />
+          </Route>
+          <Route exact path="/lobby">
+            <Wrapper />
           </Route>
         </Switch>
       </BrowserRouter>

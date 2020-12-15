@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
     const authContext = useContext(AuthenticationContext);
 
     return (
-        <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
+        <div className="relative pt-6 px-4 sm:px-6 lg:px-8 pb-4 rounded-lg shadow-md bg-white">
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
@@ -29,7 +29,6 @@ export const Navbar: React.FC = () => {
                     {(authContext.isAuthenticated && authContext.authUser.role == 'admin') ? <DropdownBackOffice /> : null}
                     {authContext.isAuthenticated ? <LogoutButton /> : <ConnectionContainer />}
                 </div>
-
             </nav>
         </div >
     )

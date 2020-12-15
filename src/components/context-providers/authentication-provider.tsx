@@ -6,7 +6,7 @@ import { LocalStorageKey } from "../../util/local-storage";
 import { UserData } from "../../util/types/data-types";
 import { UserInfoResponse } from "../../util/types/response-types";
 
-const AuthenticationProvider: React.FC = (props) => { 
+const AuthenticationProvider: React.FC = (props) => {
     const [authUser, setAuthUser] = useState<UserData>(null);
     const [userInfoQueryState, userInfoQuery] = useFetch<UserInfoResponse>(`${Config.API_URL}/users/info`);
 
@@ -22,7 +22,7 @@ const AuthenticationProvider: React.FC = (props) => {
             }
         }
     }, [userInfoQueryState.fetched]);
-    
+  
     return (
         <AuthenticationContext.Provider value={{ authUser, isAuthenticated: authUser != null, setAuthUser }}>
             {props.children}
