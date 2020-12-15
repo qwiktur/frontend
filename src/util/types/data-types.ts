@@ -42,10 +42,10 @@ export interface QuestionData extends TimeStamps {
     id: string;
     theme: ThemeData;
     title: string;
-    choices: {
+    choices: [{
         label: string;
         correct: boolean;
-    }
+    }]
 }
 
 /**
@@ -90,7 +90,7 @@ export enum Role {
  * Error code type.
  */
 export type ErrorCode =
-      'access_denied'
+    'access_denied'
     | 'invalid_client'
     | 'invalid_grant'
     | 'invalid_request'

@@ -9,7 +9,12 @@ interface QuestionTableProps {
  * Tableau contenant la liste des questions.
  * @param questions Liste des questions. 
  */
-export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions }) => (
+export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions }) => 
+{ 
+    const tamer = (q: QuestionData) => {
+        console.log(q);
+    }
+return (
     <div className="bg-white shadow-md rounded my-6">
         <table className="text-left w-full border-collapse">
             {questions ?
@@ -26,7 +31,7 @@ export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions
                     <tr className="hover:bg-grey-lighter" key={i}>
                         <td className="py-4 px-6 border-b border-grey-light">{i + 1}</td>
                         <td className="py-4 px-6 border-b border-grey-light">{question.title}</td>
-                        <td className="py-4 px-6 border-b border-grey-light">{question.theme}</td>
+                        <td className="py-4 px-6 border-b border-grey-light" onClick={() => tamer(question)}></td> 
                     </tr>
                 ))
                     : <tr className="hover:bg-grey-lighter" >
@@ -36,3 +41,4 @@ export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions
         </table>
     </div>
 )
+                    }
