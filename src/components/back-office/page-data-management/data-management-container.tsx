@@ -3,10 +3,11 @@ import useFetch from '../../../hooks/fetch-hook';
 import { AddImageButton } from './image/add-image-button';
 import { AddThemeButton } from './theme/add-theme-button';
 import { Config } from '../../../util/config';
+import { DropdownData } from './dorpdown';
 import { ImageData, ThemeData } from '../../../util/types/data-types';
-import { ImageResponse, QuestionResponse, ThemeResponse } from '../../../util/types/response-types';
 import { ImageFormData, ThemeFormData } from '../../../util/types/form-data-types';
 import { ImageModal } from './image/image-modal';
+import { ImageResponse, QuestionResponse, ThemeResponse } from '../../../util/types/response-types';
 import { ImageTableComponent } from './image/image-table-component';
 import { QuestionTableComponent } from './question/question-table-component';
 import { ThemeModal } from './theme/theme-modal';
@@ -24,6 +25,9 @@ export const DataManagementContainer: React.FC = () => {
     const [themeUpdateQueryState, themeUpdateQuery] = useFetch(`${Config.API_URL}/themes`);
     const [image, setImage] = useState<ImageData>(null);
     const [theme, setTheme] = useState<ThemeData>(null);
+    const [showImageData, setShowImageData] = useState<boolean>(false);
+    const [showQuestionData, setShowQuestionData] = useState<boolean>(false);
+    const [showThemeData, setShowThemeData] = useState<boolean>(false);
     const [showImageModal, setShowImageModal] = useState<boolean>(false);
     const [showThemeModal, setShowThemeModal] = useState<boolean>(false);
 
@@ -37,6 +41,7 @@ export const DataManagementContainer: React.FC = () => {
         if (!themeQueryState.fetched) {
             themeQuery.get();
         }
+        setShowImageData(true);
     }, []);
 
     useEffect(() => {
@@ -52,6 +57,30 @@ export const DataManagementContainer: React.FC = () => {
             handleToggleModal('image');
         }
     }, [imageUpdateQueryState]);
+
+    /**
+     * Affiche les données grave au bouton. 
+     * @param data Valeur des données à afficher
+     */
+    const handleToggleData = (data: string) => {
+        switch (data) {
+            case 'Images':
+                setShowImageData(true);
+                setShowQuestionData(false);
+                setShowThemeData(false);
+                break;
+            case 'Questions':
+                setShowImageData(false);
+                setShowQuestionData(true);
+                setShowThemeData(false);
+                break;
+            case 'Thèmes':
+                setShowImageData(false);
+                setShowQuestionData(false);
+                setShowThemeData(true);
+                break;
+        }
+    }
 
     /**
      * Affiche le modal d'ajout d'une donnée. 
@@ -159,16 +188,22 @@ export const DataManagementContainer: React.FC = () => {
     return (
         <>
             <div className="w-2/3 mx-auto">
+                <DropdownData onSetData={handleToggleData} />
                 <div>
-                    <AddImageButton onClick={handleToggleModal} />
-                    <ImageTableComponent images={imageQueryState.fetched ? imageQueryState.data.images : []} onUpdateImage={handleImageSelect} />
+                    {showImageData ?
+                        <div><AddImageButton onClick={handleToggleModal} />
+                            <ImageTableComponent images={imageQueryState.fetched ? imageQueryState.data.images : []} onUpdateImage={handleImageSelect} />
+                        </div> : <></>}
                 </div>
                 <div>
-                    <QuestionTableComponent questions={questionQueryState.fetched ? questionQueryState.data.questions : []} />
+                    {showQuestionData ?
+                        <QuestionTableComponent questions={questionQueryState.fetched ? questionQueryState.data.questions : []} /> : <></>}
                 </div>
                 <div>
-                    <AddThemeButton onClick={handleToggleModal} />
-                    <ThemeTableComponent themes={themeQueryState.fetched ? themeQueryState.data.themes : []} onUpdateTheme={handleThemeSelect} />
+                    {showThemeData ?
+                        <><AddThemeButton onClick={handleToggleModal} />
+                            <ThemeTableComponent themes={themeQueryState.fetched ? themeQueryState.data.themes : []} onUpdateTheme={handleThemeSelect} />
+                        </> : <></>}
                 </div>
             </div>
             {showImageModal ?
