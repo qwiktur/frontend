@@ -1,4 +1,4 @@
-import { ErrorData, UserData } from './data-types';
+import { ErrorData, ImageData, QuestionData, ThemeData, UserData } from './data-types';
 
 /**
  * Base API response data interface.
@@ -14,6 +14,24 @@ export interface Response {
  */
 export interface ErrorResponse extends Response {
     errors: ErrorData[];
+}
+
+/**
+ * Image response data interface.
+ * 
+ * This API response is returned by `GET /images`.
+ */
+export interface ImageResponse extends Response {
+    images: ImageData[];
+}
+
+/**
+ * Quesion response data interface.
+ * 
+ * This API response is returned by `GET /questions`.
+ */
+export interface QuestionResponse extends Response {
+    questions: QuestionData[];
 }
 
 /**
@@ -37,9 +55,18 @@ export interface SignUpResponse extends Response {
 }
 
 /**
+ * Theme response data interface.
+ * 
+ * This API response is returned by `GET /themes`.
+ */
+export interface ThemeResponse extends Response {
+    themes: ThemeData[];
+}
+
+/**
  * User informations response data interface.
  * 
- * This API response is returned by `GET /users/userinfo`.
+ * This API response is returned by `GET /users/info`.
  */
 export interface UserInfoResponse extends Response {
     user: UserData;

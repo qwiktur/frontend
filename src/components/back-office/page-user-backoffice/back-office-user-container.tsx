@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/fetch-hook';
 import { Config } from '../../../util/config';
 import { SearchBarComponent } from './searchbar-component';
-import { TableComponent } from './table-component';
+import { TableComponent } from './user-table-component';
 import { UsersResponse } from '../../../util/types/response-types';
 import { NumberUserComponent } from './number-user-component';
 
-export const BackOfficeUserPage: React.FC = () => {
+export const BackOfficeUserContainer: React.FC = () => {
     const [usersQueryState, usersQuery] = useFetch<UsersResponse>(`${Config.API_URL}/users`, true);
     const [search, setSearch] = useState('');
 
@@ -21,7 +21,6 @@ export const BackOfficeUserPage: React.FC = () => {
      */
     const handleChangeSearchUser = (value: string) => {
         setSearch(value);
-        console.log(search);
     }
 
     return (
@@ -29,7 +28,9 @@ export const BackOfficeUserPage: React.FC = () => {
             <SearchBarComponent onSearchUser={handleChangeSearchUser} />  {/* Barre de recherche */}
 
             <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
-                <TableComponent users={usersQueryState.fetched ? usersQueryState.data.users : []} />
+                <TableComponent users={usersQueryState.fetched ?
+                    usersQueryState.data.users.filter(user => user.email.includes(search) || user.username.includes(search))
+                    : []} />
 
                 <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
                     <NumberUserComponent countUsers={usersQueryState.fetched ? usersQueryState.data.users.length : null} />
