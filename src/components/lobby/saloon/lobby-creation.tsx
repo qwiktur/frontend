@@ -30,15 +30,16 @@ const LobbyCreation: React.FC = () => {
      * Inscrit l'utilisateur.
      * @param values 
      */
-  const handleSubmitSignUpForm = async (values: ThemeData) => {
-    //console.log(values)
-    await createGameQuery.post(null, {
-      theme: values.id
-    }).then((value) => {
-      //console.log(value)
-    }).catch((err) => {
-      //console.error(err)
-    });
+  const handleSubmitSignUpForm = async () => {
+
+    // //console.log(values)
+    // await createGameQuery.post(null, {
+    //   theme: formTheme.id
+    // }).then((value) => {
+    //   console.log(value)
+    // }).catch((err) => {
+    //   console.error(err)
+    // });
   };
 
   const handleClick = (e: MouseEvent) => {
@@ -50,12 +51,6 @@ const LobbyCreation: React.FC = () => {
 
   const handleThemeClick = (e: MouseEvent, themeName: ThemeData) :void => {
     setFormTheme(themeName);
-    triggerInput();
-  }
-
-  const handleChange= () => {
-    console.log('tg')
-    setFormTheme(formTheme);
   }
 
   const handleNewGameClick = async () => {
@@ -68,22 +63,8 @@ const LobbyCreation: React.FC = () => {
     setShowModalCreateGame(true)
   }
 
-
-  const triggerInput = () => {
-
-    const input = document.getElementById('formThemeInput');
-    const event = new Event('input', { bubbles: true });
-    input.dispatchEvent(event);
-  }
-
   const createGameModal = (
-    <Formik
-      initialValues={{ id:'', name: '', createdAt:'', updatedAt:''}}
-      onSubmit={handleSubmitSignUpForm}
-      onChange={handleChange}
-    >
-      {({ handleSubmit, handleChange, errors, values }) => (
-        <form noValidate onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitSignUpForm}>
           <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none ">
             <div className="py-3 sm:max-w-xl sm:mx-auto">
               <div className="bg-white min-w-1xl flex flex-col rounded-xl shadow-xl border-gray-50 border-solid border-2"  ref={node}>
@@ -98,7 +79,7 @@ const LobbyCreation: React.FC = () => {
                     <div className="w-full">
                       <div className="my-2 bg-white p-1 flex border border-gray-200 rounded">
                         <div className="flex flex-auto flex-wrap"></div>
-                          <input id="formThemeInput" value={formTheme.name} name={formTheme.id} onChange={() => handleChange} className=" w-full text-gray-800"/>
+                          <input id="formThemeInput" value={formTheme.name} name={formTheme.id} className=" w-full text-gray-800"/>
                         </div>
                       </div>
                       <div className="absolute shadow top-100 z-40 w-full left-0 rounded max-h-36 overflow-y-auto sidebar-spotify">
@@ -118,9 +99,6 @@ const LobbyCreation: React.FC = () => {
             </div>
         </form>
       )
-      }
-    </Formik >
-  );
 
   return (
     <div>
