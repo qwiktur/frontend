@@ -3,7 +3,7 @@ import useFetch from '../../../hooks/fetch-hook';
 import { AddImageButton } from './image/add-image-button';
 import { AddThemeButton } from './theme/add-theme-button';
 import { Config } from '../../../util/config';
-import { DropdownData } from './dorpdown';
+import { DropdownData } from './dropdown';
 import { ImageData, ThemeData } from '../../../util/types/data-types';
 import { ImageFormData, ThemeFormData } from '../../../util/types/form-data-types';
 import { ImageModal } from './image/image-modal';
