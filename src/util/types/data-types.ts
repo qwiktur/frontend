@@ -61,6 +61,7 @@ export interface ThemeData extends TimeStamps {
  */
 export interface UserData extends TimeStamps {
     id: string;
+    email: string;
     username: string;
     password: string;
     // avatar: string;
@@ -82,7 +83,7 @@ export enum Language {
 }
 
 export enum Role {
-    USER = 'Utilisateur', MODO = 'Modérateur', ADMIN = 'Administrateur'
+    USER = 'user', MODO = 'modo', ADMIN = 'admin'
 }
 
 /**
