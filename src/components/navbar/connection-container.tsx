@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import AuthenticationContext from '../../contexts/authentication-context';
 import useFetch from '../../hooks/fetch-hook';
 import { Config } from '../../util/config';
@@ -19,6 +19,7 @@ interface SignUpFormValues {
 }
 
 const ConnectionContainer: React.FC = () => {
+    const node= useRef<HTMLDivElement>(null);
     const userContext = useContext(AuthenticationContext);
     const [showModalSignIn, setShowModalSignIn] = useState(false);
     const [showModalSignUp, setShowModalSignUp] = useState(false);
@@ -33,6 +34,11 @@ const ConnectionContainer: React.FC = () => {
             userInfoQuery.get();
             handleToggleSignInModal();
         }
+        document.addEventListener('mousedown', handleClick);
+        // return function to be called when unmounted
+        return () => {
+        document.removeEventListener('mousedown', handleClick);
+        };
     });
 
     useEffect(() => {
@@ -49,6 +55,14 @@ const ConnectionContainer: React.FC = () => {
             userContext.setAuthUser(userInfoQueryState.data.user);
         }
     });
+
+    const handleClick = (e: MouseEvent) => {
+    if(node.current && node.current.contains(e.target as Node)) {
+        return;
+    }
+    setShowModalSignUp(false);
+    setShowModalSignIn(false);
+    }
 
     /**
      * Ouvre le modal pour l'inscription de l'utilisateur.
