@@ -27,9 +27,9 @@ export const ImageTableComponent: React.FC<ImageTableProps> = (props) => (
                 {props.images ? props.images.map((image, i) => (
                     <tr className="hover:bg-grey-lighter" key={i} onClick={() => props.onUpdateImage(image)}>
                         <td className="py-4 px-6 border-b border-grey-light">{i + 1}</td>
-                        <td className="py-4 px-6 border-b border-grey-light">{image.src}</td>
+                        <td className="py-4 px-6 border-b border-grey-light"><img className="h-48" src={image.src} /></td>
                         <td className="py-4 px-6 border-b border-grey-light">{image.title}</td>
-                        <td className="py-4 px-6 border-b border-grey-light">{image.theme}</td>
+                        <td className="py-4 px-6 border-b border-grey-light">{image.theme.name}</td>
                     </tr>
                 ))
                     : <tr className="hover:bg-grey-lighter" >
