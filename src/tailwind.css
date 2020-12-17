@@ -15,3 +15,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.top-100 {top: 100%}
+.bottom-100 {bottom: 100%}
+.max-h-select {
+    max-height: 300px;
+}
+
+.sidebar-spotify::-webkit-scrollbar
+{
+  width: 8px;
+  background-color: #fff;
+}
+.sidebar-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #535353;
+}
+.content-spotify::-webkit-scrollbar
+{
+  width: 8px;
+  background-color: #fff;
+}
+.content-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #535353;
+}

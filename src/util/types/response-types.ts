@@ -63,11 +63,19 @@ export interface SignUpResponse extends Response {
 }
 
 /**
+ * Create game response data interface.
+ * 
+ * This API response is returned by `POST /games`.
+ */
+export interface CreateGameResponse extends Response {
+    id: string;
+}
+/**
  * Theme response data interface.
  * 
  * This API response is returned by `GET /themes`.
  */
-export interface ThemeResponse extends Response {
+export interface ThemesResponse extends Response {
     themes: ThemeData[];
 }
 

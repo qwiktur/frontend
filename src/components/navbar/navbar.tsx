@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom";
 import AuthenticationContext from "../../contexts/authentication-context";
+import LobbyCreation from '../lobby/saloon/lobby-creation';
 import { DropdownBackOffice } from "./backoffice-dropdown";
 import ConnectionContainer from "./connection-container";
 import { LogoutButton } from "./logout-button";
@@ -22,7 +23,7 @@ export const Navbar: React.FC = () => {
                     </div>
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                    <a href="#" className="font-medium text-gray-500 hover:text-green-light">Nouvelle partie</a>
+                    <LobbyCreation />
 
                 </div>
                 <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
