@@ -9,12 +9,7 @@ interface QuestionTableProps {
  * Tableau contenant la liste des questions.
  * @param questions Liste des questions. 
  */
-export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions }) => 
-{ 
-    const tamer = (q: QuestionData) => {
-        console.log(q);
-    }
-return (
+export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions }) => (
     <div className="bg-white shadow-md rounded my-6">
         <table className="text-left w-full border-collapse">
             {questions ?
@@ -41,4 +36,3 @@ return (
         </table>
     </div>
 )
-                    }
