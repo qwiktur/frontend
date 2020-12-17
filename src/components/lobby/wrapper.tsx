@@ -7,9 +7,10 @@ import useFetch from '../../hooks/fetch-hook'
 import { Config } from '../../util/config'
 import { GameData, QuestionData } from '../../util/types/data-types'
 import { CreateGameResponse, GetGameResponse, GetQuestionResponse } from '../../util/types/response-types'
-import { AnswerClientToServer, AnswerServerToClient, CreateServerToClient, ErrorServerToClient, JoinServerToClient, SocketEvent, StartClientToServer, StartServerToClient } from '../../util/types/websocket-types'
+import { AnswerClientToServer, AnswerServerToClient, CreateServerToClient, ErrorServerToClient, JoinServerToClient, SocketEvent, StartClientToServer, StartServerToClient, AnswerImageClientToServer, AnswerImageServerToClient } from '../../util/types/websocket-types'
 import { Navbar } from '../navbar/navbar'
 import GamePage from './game/game-page'
+import WinnerPage from './game/winner-page'
 import GamePanel from './saloon/game-panel'
 import PlayerList from './saloon/player-list'
 import './wrapper.css'
@@ -30,7 +31,8 @@ function Wrapper(): JSX.Element {
   const [imgBase64, setImgBase64] = useState('');
   const [screen, setScreen] = useState(1);
   const [getNextQuestionQueryState, getNextQuestionQuery] = useFetch<GetQuestionResponse>(null);
-  const [nextQuestion, setNextQuestion] = useState<QuestionData>(null)
+  const [nextQuestion, setNextQuestion] = useState<QuestionData>(null);
+  const [winner, setWinner] = useState<boolean>(false);
 
   useEffect(() => {
     if (!authContext.isAuthenticated) {
@@ -51,16 +53,21 @@ function Wrapper(): JSX.Element {
     });
 
     socket.on(SocketEvent.START, (data: StartServerToClient) => {
-      console.log(data);
       setScreen(2);
       setImgBase64(data.imgBase64);
       getNextQuestionQuery.get(`${Config.API_URL}/questions/${data.questionId}`);
     });
 
     socket.on(SocketEvent.ANSWER, (data: AnswerServerToClient) => {
-      console.log(data.correct);
       setImgBase64(data.imgBase64);
       getNextQuestionQuery.get(`${Config.API_URL}/questions/${data.nextQuestionId}`);
+    })
+
+    socket.on(SocketEvent.ANSWER_IMAGE, (data: AnswerImageServerToClient) => {
+      if (data.correct == true){
+        setScreen(3);
+        setWinner(true)
+      }
     })
 
     return () => {
@@ -69,6 +76,7 @@ function Wrapper(): JSX.Element {
       socket.off(SocketEvent.JOIN);
       socket.off(SocketEvent.START);
       socket.off(SocketEvent.ANSWER);
+      socket.off(SocketEvent.ANSWER_IMAGE);
     }
   }, []);
 
@@ -103,6 +111,15 @@ function Wrapper(): JSX.Element {
     } as AnswerClientToServer)
   }
 
+  const handleAnswerImage = (title: string) => {
+    console.log(title)
+    socket.emit(SocketEvent.ANSWER_IMAGE, {
+      code: currentGame.code,
+      userId: authContext.authUser.id,
+      title: title
+    } as AnswerImageClientToServer)
+  }
+
   const GameWrap = () => {
 
     let elements;
@@ -128,7 +145,14 @@ function Wrapper(): JSX.Element {
 
       case 2: elements = (
         <>
-         {currentGame && nextQuestion? <GamePage game={currentGame} imgBase64={imgBase64} onAnswer={handleClickButtonAnswer} question={nextQuestion} /> : null}
+         {currentGame && nextQuestion? <GamePage game={currentGame} imgBase64={imgBase64} onAnswer={handleClickButtonAnswer} onAnswerImage={handleAnswerImage} question={nextQuestion} /> : null}
+        </>
+      );
+      break;
+
+      case 3: elements = (
+        <>
+          {winner ? <WinnerPage user={authContext.authUser} /> : null}
         </>
       );
       break;

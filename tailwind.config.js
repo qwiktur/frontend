@@ -9,7 +9,10 @@ module.exports = {
                     default: '#009000',
                     dark: '#006600',
                 }
-            }
+            },
+            animation: {
+                'spin-slow': 'spin 3s linear infinite',
+               }
         },
     },
     variants: {
