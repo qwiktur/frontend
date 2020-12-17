@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
 
                 </div>
                 <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                    {/* {(authContext.isAuthenticated && authContext.authUser.role == 'admin') ? <DropdownBackOffice /> : null} */}
+                    {(authContext.isAuthenticated && authContext.authUser.role == 'admin') ? <DropdownBackOffice /> : null}
                     {authContext.isAuthenticated ? <LogoutButton /> : <ConnectionContainer />}
                 </div>
             </nav>
