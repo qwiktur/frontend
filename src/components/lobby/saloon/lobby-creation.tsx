@@ -1,14 +1,20 @@
-import { Formik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useContext, useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom';
+import AuthenticationContext from '../../../contexts/authentication-context';
+import WebsocketContext from '../../../contexts/websocket-context';
 import useFetch from '../../../hooks/fetch-hook';
 import { Config } from '../../../util/config';
 import { ThemeData } from '../../../util/types/data-types';
-import { CreateGameResponse, ThemesResponse } from '../../../util/types/response-types';
+import { ThemesResponse } from '../../../util/types/response-types';
+import { CreateClientToServer, SocketEvent } from '../../../util/types/websocket-types';
 import SelectOptionGame from './select-option-game';
 
 const LobbyCreation: React.FC = () => {
 
   const node= useRef<HTMLDivElement>(null);
+  const history = useHistory();
+  const authContext = useContext(AuthenticationContext);
+  const { socket } = useContext(WebsocketContext);
 
   useEffect(() => {
     getThemesQuery.get();
@@ -20,26 +26,23 @@ const LobbyCreation: React.FC = () => {
     };
   }, []);
 
-  const [createGameQueryState, createGameQuery] = useFetch<CreateGameResponse>(`${Config.API_URL}/games`, true);
   const [getThemesQueryState, getThemesQuery] = useFetch<ThemesResponse>(`${Config.API_URL}/themes`, true);
   const [showModalCreateGame, setShowModalCreateGame] = useState(false);
   const [themes, setThemes] = useState<ThemeData[]>([]);
   const [formTheme, setFormTheme] = useState<ThemeData>({ id:'', name: '', createdAt:'', updatedAt:''});
 
-  /**
-     * Inscrit l'utilisateur.
-     * @param values 
-     */
-  const handleSubmitSignUpForm = async () => {
 
-    // //console.log(values)
-    // await createGameQuery.post(null, {
-    //   theme: formTheme.id
-    // }).then((value) => {
-    //   console.log(value)
-    // }).catch((err) => {
-    //   console.error(err)
-    // });
+  const handleSubmitSignUpForm = async (e: FormEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+    socket.emit(SocketEvent.CREATE, {
+      authorId: authContext.authUser.id,
+      themeId: formTheme.id
+    } as CreateClientToServer);
+
+    history.push({
+      pathname:'/lobby'
+    });
   };
 
   const handleClick = (e: MouseEvent) => {
@@ -79,7 +82,7 @@ const LobbyCreation: React.FC = () => {
                     <div className="w-full">
                       <div className="my-2 bg-white p-1 flex border border-gray-200 rounded">
                         <div className="flex flex-auto flex-wrap"></div>
-                          <input id="formThemeInput" value={formTheme.name} name={formTheme.id} className=" w-full text-gray-800"/>
+                          <input id="formThemeInput" value={formTheme.name} name={formTheme.id} readOnly className=" w-full text-gray-800"/>
                         </div>
                       </div>
                       <div className="absolute shadow top-100 z-40 w-full left-0 rounded max-h-36 overflow-y-auto sidebar-spotify">

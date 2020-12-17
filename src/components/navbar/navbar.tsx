@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import AuthenticationContext from '../../contexts/authentication-context';
+import JoinLobby from '../lobby/saloon/join-lobby';
 import LobbyCreation from '../lobby/saloon/lobby-creation';
 import { DropdownBackOffice } from './backoffice-dropdown';
 import ConnectionContainer from './connection-container';
@@ -24,6 +25,9 @@ export const Navbar: React.FC = () => {
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                     {authContext.isAuthenticated ? <LobbyCreation /> : null }
+                </div>
+                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
+                    {authContext.isAuthenticated ? <JoinLobby /> : null }
                 </div>
                 <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                     {(authContext.isAuthenticated && authContext.authUser.role == 'admin') ? <DropdownBackOffice /> : null}
