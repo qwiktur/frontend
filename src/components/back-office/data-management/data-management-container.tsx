@@ -187,17 +187,20 @@ export const DataManagementContainer: React.FC = () => {
 
     return (
         <>
-            <div className="w-2/3 mx-auto">
+            <div className="w-2/3 mx-auto mt-10">
                 <DropdownData onSetData={handleToggleData} />
                 <div>
                     {showImageData ?
-                        <div><AddImageButton onClick={handleToggleModal} />
+                        <>
+                            <AddImageButton onClick={handleToggleModal} />
                             <ImageTableComponent images={imageQueryState.fetched ? imageQueryState.data.images : []} onUpdateImage={handleImageSelect} />
-                        </div> : <></>}
+                        </> : <></>}
                 </div>
                 <div>
                     {showQuestionData ?
-                        <QuestionTableComponent questions={questionQueryState.fetched ? questionQueryState.data.questions : []} /> : <></>}
+                        <QuestionTableComponent questions={questionQueryState.fetched ? questionQueryState.data.questions : []} />
+                        : <></>}
+
                 </div>
                 <div>
                     {showThemeData ?
@@ -211,7 +214,7 @@ export const DataManagementContainer: React.FC = () => {
                     image={image}
                     show={showImageModal}
                     themes={themeQueryState.fetched ? themeQueryState.data.themes : null}
-                    onDeleteTheme={handleImageDelete}
+                    onDeleteImage={handleImageDelete}
                     onHide={handleToggleModal}
                     onImageSubmit={handleImageSubmit}
                 />

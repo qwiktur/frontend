@@ -8,7 +8,7 @@ interface ImageModalProps {
     image: ImageData;
     show: boolean;
     themes: ThemeData[];
-    onDeleteTheme: (image: ImageData) => void;
+    onDeleteImage: (image: ImageData) => void;
     onHide: (value: string) => void;
     onImageSubmit: (image: ImageData, values: ImageFormData) => void;
 }
@@ -85,7 +85,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
                                 {/*footer*/}
                                 <div className="w-full text-center mx-auto border-t border-solid border-gray-300">
                                     {props.image != null ?
-                                        <button onClick={() => props.onDeleteTheme(props.image)}
+                                        <button onClick={() => props.onDeleteImage(props.image)}
                                             className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
                                             Supprimer l'image</button>
                                         : <></>}
