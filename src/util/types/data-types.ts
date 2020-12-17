@@ -13,6 +13,8 @@ interface TimeStamps {
  */
 export interface GameData extends TimeStamps {
     id: string;
+    code: string;
+    image: ImageData;
     theme: ThemeData;
     players: UserData[];
     questions: [{
@@ -66,7 +68,7 @@ export interface UserData extends TimeStamps {
     password: string;
     // avatar: string;
     role: Role;
-    lang: Language;
+    language: string;
     elo: number
 }
 
@@ -76,10 +78,6 @@ export interface UserData extends TimeStamps {
 export interface ErrorData {
     error: ErrorCode;
     error_description: string;
-}
-
-export enum Language {
-    FR = 'Français', EN = 'English', DE = 'Deutsch'
 }
 
 export enum Role {
