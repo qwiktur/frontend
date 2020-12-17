@@ -7,7 +7,7 @@ import useFetch from '../../hooks/fetch-hook'
 import { Config } from '../../util/config'
 import { GameData } from '../../util/types/data-types'
 import { CreateGameResponse, GetGameResponse } from '../../util/types/response-types'
-import { CreateServerToClient, ErrorServerToClient, JoinServerToClient, SocketEvent } from '../../util/types/websocket-types'
+import { CreateServerToClient, ErrorServerToClient, JoinServerToClient, SocketEvent, StartClientToServer, StartServerToClient } from '../../util/types/websocket-types'
 import { Navbar } from '../navbar/navbar'
 import GamePanel from './saloon/game-panel'
 import PlayerList from './saloon/player-list'
@@ -45,6 +45,10 @@ function Wrapper(): JSX.Element {
       getGameQuery.get(`${Config.API_URL}/games/${data.gameId}`);
     });
 
+    socket.on(SocketEvent.START, (data: StartServerToClient) => {
+      //tg
+    });
+
     return () => {
       socket.off(SocketEvent.CREATE);
       socket.off(SocketEvent.ERROR);
@@ -54,9 +58,16 @@ function Wrapper(): JSX.Element {
   useEffect(() => {
     if (getGameQueryState.fetched) {
       setCurrentGame(getGameQueryState.data.game);
-      console.log(getGameQueryState.data);
+      localStorage.setItem('gameId', getGameQueryState.data.game.id);
     }
   }, [getGameQueryState]);
+
+  const handleStart = () => {
+    socket.emit(SocketEvent.START, {
+      code: currentGame.code,
+      userId: authContext.authUser.id
+    } as StartClientToServer);
+  }
 
 
   return (
@@ -68,7 +79,7 @@ function Wrapper(): JSX.Element {
       <div className="flex mt-16 items-center">
         <div className="flex flex-row items-stretch w-full mx-2">
           <div className="w-4/6">
-          {currentGame? <PlayerList listPlayers={currentGame.players} />  : null}
+          {currentGame? <PlayerList onStart={handleStart} listPlayers={currentGame.players} />  : null}
           </div>
           <div className="w-2/6">
             {currentGame ? <GamePanel game={currentGame}/> : null}

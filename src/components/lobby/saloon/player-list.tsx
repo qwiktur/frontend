@@ -4,7 +4,8 @@ import { UserData } from '../../../util/types/data-types'
 import PlayerCard from './player-card'
 
 interface IPlayerListProps{
-  listPlayers: UserData[]
+  listPlayers: UserData[],
+  onStart: () => void
 }
 
 const PlayerList: React.FC<IPlayerListProps> = (props) => {
@@ -54,7 +55,7 @@ const PlayerList: React.FC<IPlayerListProps> = (props) => {
         </div>
         <div className="p-6 ">
           {props.listPlayers[0].id == authUser.authUser.id ?
-          <button className="p-4 bg-green-400 hover:bg-green-500 w-full rounded-lg shadow text-xl font-medium uppercase text-white">Jouer</button>
+          <button className="p-4 bg-green-400 hover:bg-green-500 w-full rounded-lg shadow text-xl font-medium uppercase text-white" onClick={props.onStart}>Jouer</button>
           : <button className="p-4 bg-gray-400 w-full rounded-lg shadow text-xl font-medium uppercase text-white cursor-default" disabled>Jouer</button> }
         </div>
       </div>
