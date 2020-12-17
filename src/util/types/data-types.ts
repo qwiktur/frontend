@@ -9,6 +9,16 @@ interface TimeStamps {
 }
 
 /**
+ * Choice data interface.
+ * 
+ */
+export interface ChoiceData {
+
+    label: string;
+    correct: boolean;
+
+}
+/**
  * Game data interface.
  */
 export interface GameData extends TimeStamps {
@@ -44,10 +54,7 @@ export interface QuestionData extends TimeStamps {
     id: string;
     theme: ThemeData;
     title: string;
-    choices: [{
-        label: string;
-        correct: boolean;
-    }]
+    choices: ChoiceData[];
 }
 
 /**
