@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import useFetch from '../../../hooks/fetch-hook';
 import { Config } from '../../../util/config';
 import { DashboardMenu } from './dashboard-menu';
+import { DetailGame } from './detail-render-data';
+import { GameData } from '../../../util/types/data-types';
 import { GameResponse, UsersResponse } from '../../../util/types/response-types';
 import { LastGames } from './last-games';
-import { GameData } from '../../../util/types/data-types';
-import { DetailGame } from './detail-render-data';
+import { ListUsers } from './list-users';
 
 export const DashboardBackOffice: React.FC = () => {
     const [gamesQueryState, gamesQuery] = useFetch<GameResponse>(`${Config.API_URL}/games`);
@@ -56,7 +57,7 @@ export const DashboardBackOffice: React.FC = () => {
                     <LastGames games={gamesQueryState.fetched ? gamesQueryState.data.games : []} detailGame={handleShowDetail} />
                     : <></>}
                 {showUsers ?
-                    <p>BITE</p>
+                    <ListUsers users={usersQueryState.fetched ? usersQueryState.data.users : []} />
                     : <></>}
             </div>
             <div className="col-start-6 col-end-8">

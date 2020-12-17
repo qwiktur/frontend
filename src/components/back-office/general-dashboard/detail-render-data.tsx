@@ -4,7 +4,7 @@ import { GameData } from '../../../util/types/data-types';
 interface DetailGameProps {
     game: GameData;
 }
-export const DetailGame: React.FC<DetailGameProps> = ({ game }) => (
+export const DetailGame: React.FC<DetailGameProps> = ({game}) => (
     <div className="shadow bg-white px-5 pt-10 rounded-md">
         <h1 className="flex mx-auto w-full items-center justify-center mb-5">Détail de la partie</h1>
         <div>
@@ -50,5 +50,12 @@ export const DetailGame: React.FC<DetailGameProps> = ({ game }) => (
                 ))}
             </ul>
         </div>
+
+        {game.image ?
+            <div className="mt-5">
+                <p>Image à deviner</p>
+                <img className="h-48" src={game.image.src} />
+            </div>
+            : <></>}
     </div>
 )
