@@ -12,10 +12,6 @@ const QuestionsComponent: React.FC<IGamePage> = (props) => {
 
   const val = [0,1,2,3];
 
-  useEffect(() => {
-    console.log(props.game)
-  }, []);
-
   return (
     <div className="flex flex-row justify-center mt-16">
       <div className="bg-white border-b-4 border-green-500 w-4/5 shadow-lg rounded-lg">
