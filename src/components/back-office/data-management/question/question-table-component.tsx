@@ -26,7 +26,7 @@ export const QuestionTableComponent: React.FC<QuestionTableProps> = ({ questions
                     <tr className="hover:bg-grey-lighter" key={i}>
                         <td className="py-4 px-6 border-b border-grey-light">{i + 1}</td>
                         <td className="py-4 px-6 border-b border-grey-light">{question.title}</td>
-                        <td className="py-4 px-6 border-b border-grey-light">{question.theme}</td>
+                        <td className="py-4 px-6 border-b border-grey-light">{question.theme.name}</td> 
                     </tr>
                 ))
                     : <tr className="hover:bg-grey-lighter" >

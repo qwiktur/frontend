@@ -1,12 +1,13 @@
 import AuthenticationProvider from './context-providers/authentication-provider';
 import React from 'react';
-import { BackOfficeUserContainer } from './back-office/page-user-backoffice/back-office-user-container';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { DataManagementContainer } from './back-office/page-data-management/data-management-container';
-import { HomePage } from './home-page/home-page';
 import Wrapper from './lobby/wrapper';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { DashboardBackOffice } from './back-office/general-dashboard/dashboard';
+import { DataManagementContainer } from './back-office/data-management/data-management-container';
+import { HomePage } from './home-page/home-page';
 import { Navbar } from './navbar/navbar';
 import WebsocketProvider from './context-providers/websocket-provider';
+import { UserBackOffice } from './back-office/back-office-user/back-office-user-container';
 
 const App: React.FC = () => {
   return (
@@ -24,7 +25,11 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/backoffice/users">
               <Navbar />
-              <BackOfficeUserContainer />
+              <UserBackOffice />
+            </Route>
+            <Route exact path="/backoffice/dashboard">
+              <Navbar />
+              <DashboardBackOffice />
             </Route>
             <Route exact path="/lobby">
               <Wrapper />

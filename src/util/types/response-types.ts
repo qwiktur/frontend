@@ -17,6 +17,14 @@ export interface ErrorResponse extends Response {
 }
 
 /**
+ * Game response data interface.
+ * 
+ * This API response is returned by `GET /games`.
+ */
+export interface GameResponse extends Response {
+    games: GameData[];
+}
+/**
  * Image response data interface.
  * 
  * This API response is returned by `GET /images`.
@@ -91,9 +99,9 @@ export interface UserInfoResponse extends Response {
 }
 
 /**
- * User informations response data interface.
+ * Users informations response data interface.
  * 
- * This API response is returned by `GET /users/userinfo`.
+ * This API response is returned by `GET /users`.
  */
 export interface UsersResponse extends Response {
     users: UserData[];

@@ -13,6 +13,8 @@ interface TimeStamps {
  */
 export interface GameData extends TimeStamps {
     id: string;
+    code: string;
+    image: ImageData;
     theme: ThemeData;
     players: UserData[];
     questions: [{
@@ -42,10 +44,10 @@ export interface QuestionData extends TimeStamps {
     id: string;
     theme: ThemeData;
     title: string;
-    choices: {
+    choices: [{
         label: string;
         correct: boolean;
-    }
+    }]
 }
 
 /**
@@ -66,7 +68,7 @@ export interface UserData extends TimeStamps {
     password: string;
     // avatar: string;
     role: Role;
-    lang: Language;
+    language: string;
     elo: number
 }
 
@@ -78,10 +80,6 @@ export interface ErrorData {
     error_description: string;
 }
 
-export enum Language {
-    FR = 'Français', EN = 'English', DE = 'Deutsch'
-}
-
 export enum Role {
     USER = 'user', MODO = 'modo', ADMIN = 'admin'
 }
@@ -90,7 +88,7 @@ export enum Role {
  * Error code type.
  */
 export type ErrorCode =
-      'access_denied'
+    'access_denied'
     | 'invalid_client'
     | 'invalid_grant'
     | 'invalid_request'
