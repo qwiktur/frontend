@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import { Socket } from 'socket.io-client'
 import AuthenticationContext from '../../contexts/authentication-context'
 import WebsocketContext from '../../contexts/websocket-context'
 import useFetch from '../../hooks/fetch-hook'
 import { Config } from '../../util/config'
 import { GameData } from '../../util/types/data-types'
 import { CreateGameResponse, GetGameResponse } from '../../util/types/response-types'
-import { CreateServerToClient, ErrorServerToClient, SocketEvent } from '../../util/types/websocket-types'
+import { CreateServerToClient, ErrorServerToClient, JoinServerToClient, SocketEvent } from '../../util/types/websocket-types'
 import { Navbar } from '../navbar/navbar'
 import GamePanel from './saloon/game-panel'
 import PlayerList from './saloon/player-list'
@@ -15,6 +16,7 @@ import './wrapper.css'
 interface CurrentGameId {
   gameId: string
 }
+
 
 function Wrapper(): JSX.Element {
 
@@ -30,13 +32,17 @@ function Wrapper(): JSX.Element {
       history.push('/');
     }
 
-    const stateLocation = location.state.toString();
     socket.on(SocketEvent.CREATE, (data: CreateServerToClient) => {
       getGameQuery.get(`${Config.API_URL}/games/${data.gameId}`);
     });
 
     socket.on(SocketEvent.ERROR, (data: ErrorServerToClient) => {
       console.log(data.message);
+    });
+
+    socket.on(SocketEvent.JOIN, (data: JoinServerToClient) => {
+      getGameQuery.reset();
+      getGameQuery.get(`${Config.API_URL}/games/${data.gameId}`);
     });
 
     return () => {
@@ -56,16 +62,16 @@ function Wrapper(): JSX.Element {
   return (
     <div className="flex flex-col bg-gray-100 min-h-screen">
       <Navbar />
+      <div className="text-center mt-4">
+        <h2 className="text-green-dark text-xl">Code: {currentGame ? currentGame.code : 'Chargement...'}</h2>
+      </div>
       <div className="flex mt-16 items-center">
-        <div>
-          <h2>Code: {currentGame ? currentGame.code : 'Chargement mon gourmand...'}</h2>
-        </div>
         <div className="flex flex-row items-stretch w-full mx-2">
           <div className="w-4/6">
-            <PlayerList />
+          {currentGame? <PlayerList listPlayers={currentGame.players} />  : null}
           </div>
           <div className="w-2/6">
-            <GamePanel />
+            {currentGame ? <GamePanel game={currentGame}/> : null}
           </div>
         </div>
       </div>

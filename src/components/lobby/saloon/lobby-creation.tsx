@@ -29,7 +29,7 @@ const LobbyCreation: React.FC = () => {
   const [getThemesQueryState, getThemesQuery] = useFetch<ThemesResponse>(`${Config.API_URL}/themes`, true);
   const [showModalCreateGame, setShowModalCreateGame] = useState(false);
   const [themes, setThemes] = useState<ThemeData[]>([]);
-  const [formTheme, setFormTheme] = useState<ThemeData>({ id:'', name: '', createdAt:'', updatedAt:''});
+  const [formTheme, setFormTheme] = useState<ThemeData>({ id:'', name: '', image: '', createdAt:'', updatedAt:''});
 
 
   const handleSubmitSignUpForm = async (e: FormEvent<HTMLFormElement>) => {

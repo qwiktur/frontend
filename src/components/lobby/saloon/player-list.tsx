@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthenticationContext from '../../../contexts/authentication-context'
+import { UserData } from '../../../util/types/data-types'
 import PlayerCard from './player-card'
 
-function PlayerList(): JSX.Element {
+interface IPlayerListProps{
+  listPlayers: UserData[]
+}
+
+const PlayerList: React.FC<IPlayerListProps> = (props) => {
+
+  const authUser = useContext(AuthenticationContext);
+
   return (
     <div className="flex-1 flex justify-center items-center">
       <div className="bg-white w-full rounded-lg shadow">
         <div className="h-12 flex justify-between items-center border-b border-gray-200 m-4">
           {/* Title of lobby */}
           <div>
-            <div className="text-xl font-bold text-gray-700">Lobby de Miki</div>
+            <div className="text-xl font-bold text-gray-700">Lobby de {props.listPlayers[0].username}</div>
             <div className="text-sm font-base text-gray-500">En attente de joueurs...</div>
           </div>
           {/*Toggle private / public */}
@@ -38,13 +47,14 @@ function PlayerList(): JSX.Element {
         </div>
         {/* List of players */}
         <div className="px-6">
-          <PlayerCard img="https://avatars0.githubusercontent.com/u/22825938?s=460&u=9ae7b54aeb4b029e3d7a7dc1b8d533d64fdf654f&v=4" username="Miki" />
-          <PlayerCard img="https://avatars2.githubusercontent.com/u/56311353?s=460&u=a55442552cb1dda88346b1101d3a8e42140c7ded&v=4" username="Michel" />
-          <PlayerCard img="https://avatars1.githubusercontent.com/u/44392462?s=460&u=e67b11dd298cfa80d5a2c45c72d9b9002e2dd27b&v=4" username="Théo" />
-          <PlayerCard img="https://cdn.discordapp.com/avatars/147421804632211456/898744aeac115d06b139fad907656c20.webp?size=128" username="Jeremy" />
+          {
+            props.listPlayers.map((player) => (<PlayerCard username={player.username} key={player.id} />))
+          }
         </div>
         <div className="p-6 ">
+          {props.listPlayers[0].id == authUser.authUser.id ?
           <button className="p-4 bg-green-400 hover:bg-green-500 w-full rounded-lg shadow text-xl font-medium uppercase text-white">Jouer</button>
+          : <button className="p-4 bg-gray-400 w-full rounded-lg shadow text-xl font-medium uppercase text-white cursor-default" disabled>Jouer</button> }
         </div>
       </div>
     </div>

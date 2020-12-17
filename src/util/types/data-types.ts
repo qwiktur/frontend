@@ -56,6 +56,7 @@ export interface QuestionData extends TimeStamps {
 export interface ThemeData extends TimeStamps {
     id: string;
     name: string;
+    image: string;
 }
 
 /**

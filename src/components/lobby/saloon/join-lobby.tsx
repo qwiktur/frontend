@@ -1,10 +1,16 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useContext, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
+import { Socket } from 'socket.io-client';
+import AuthenticationContext from '../../../contexts/authentication-context';
+import WebsocketContext from '../../../contexts/websocket-context';
+import { JoinClientToServer, SocketEvent } from '../../../util/types/websocket-types';
 
 const JoinLobby: React.FC = () => {
 
   const node= useRef<HTMLDivElement>(null);
   const history = useHistory();
+  const { socket } = useContext(WebsocketContext);
+  const userContext = useContext(AuthenticationContext);
 
   useEffect(() => {
     // add when mounted
@@ -21,6 +27,11 @@ const JoinLobby: React.FC = () => {
   const handleSubmitSignUpForm = async (e: FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
+
+    socket.emit(SocketEvent.JOIN, {
+      code: codeGame,
+      userId: userContext.authUser.id
+    } as JoinClientToServer)
 
     history.push({
       pathname:'/lobby',
