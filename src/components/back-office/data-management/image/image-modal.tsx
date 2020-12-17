@@ -8,7 +8,7 @@ interface ImageModalProps {
     image: ImageData;
     show: boolean;
     themes: ThemeData[];
-    onDeleteQuestion: (image: ImageData) => void;
+    onDeleteImage: (image: ImageData) => void;
     onHide: (value: string) => void;
     onImageSubmit: (image: ImageData, values: ImageFormData) => void;
 }

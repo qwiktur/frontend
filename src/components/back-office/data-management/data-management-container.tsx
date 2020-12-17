@@ -214,7 +214,7 @@ export const DataManagementContainer: React.FC = () => {
                     image={image}
                     show={showImageModal}
                     themes={themeQueryState.fetched ? themeQueryState.data.themes : null}
-                    onDeleteQuestion={handleImageDelete}
+                    onDeleteImage={handleImageDelete}
                     onHide={handleToggleModal}
                     onImageSubmit={handleImageSubmit}
                 />
