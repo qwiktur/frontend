@@ -6,7 +6,7 @@ import { TableComponent } from './user-table-component';
 import { UsersResponse } from '../../../util/types/response-types';
 import { NumberUserComponent } from './number-user-component';
 
-export const BackOfficeUserContainer: React.FC = () => {
+export const UserBackOffice: React.FC = () => {
     const [usersQueryState, usersQuery] = useFetch<UsersResponse>(`${Config.API_URL}/users`, true);
     const [search, setSearch] = useState('');
 

@@ -31,7 +31,7 @@ export const TableComponent: React.FC<TableProps> = ({ users }) => (
                             <td className="py-4 px-6 border-b border-grey-light">{user.email}</td>
                             <td className="py-4 px-6 border-b border-grey-light">{user.username}</td>
                             <td className="py-4 px-6 border-b border-grey-light">{user.elo}</td>
-                            <td className="py-4 px-6 border-b border-grey-light">{user.lang}</td>
+                            <td className="py-4 px-6 border-b border-grey-light">{user.language}</td>
                             <td className="py-4 px-6 border-b border-grey-light">
                                 <a href="#" className="text-white font-bold py-1 px-3 rounded text-xs bg-green-light hover:bg-green-dark">{user.role}</a>
                             </td>
