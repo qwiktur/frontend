@@ -1,6 +1,11 @@
 import React from 'react'
+import { GameData } from '../../../util/types/data-types'
 
-function GamePanel(): JSX.Element {
+interface IGamePanelProps{
+  game: GameData
+}
+
+const GamePanel: React.FC<IGamePanelProps> = (props) => {
   return (
     <div className="flex-1 pl-4 flex justify-center items-center">
       <div className="bg-white w-full md:max-w-4xl rounded-lg shadow">
@@ -13,12 +18,12 @@ function GamePanel(): JSX.Element {
         </div>
         {/* Image */}
         <div className="rounded-lg m-4">
-          <img src="/img/videogames.jpg" alt="Video Games" />
+          <img src={props.game.theme.image} alt="Video Games" />
         </div>
         {/* Information */}
         <div className="flex flex-col items-center space-y-2 py-4">
-          <div className="text-xl font-bold text-gray-900">Jeux Vidéos</div>
-          <div className="text-md font-semibold text-gray-500">Nombre de joueurs : 4</div>
+          <div className="text-xl font-bold text-gray-900">{props.game.theme.name}</div>
+          <div className="text-md font-semibold text-gray-500">Nombre de joueurs : {props.game.players.length}</div>
           <div className="flex flex-row items-center space-x-2">
             <div className="text-md font-semibold text-gray-500">Langage : </div>
             <svg className="text-white w-9 h-6 " xmlns="http://www.w3.org/2000/svg">

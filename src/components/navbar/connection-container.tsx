@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import AuthenticationContext from '../../contexts/authentication-context';
 import useFetch from '../../hooks/fetch-hook';
 import { Config } from '../../util/config';
@@ -19,6 +19,7 @@ interface SignUpFormValues {
 }
 
 const ConnectionContainer: React.FC = () => {
+    const node= useRef<HTMLDivElement>(null);
     const userContext = useContext(AuthenticationContext);
     const [showModalSignIn, setShowModalSignIn] = useState(false);
     const [showModalSignUp, setShowModalSignUp] = useState(false);
@@ -33,6 +34,11 @@ const ConnectionContainer: React.FC = () => {
             userInfoQuery.get();
             handleToggleSignInModal();
         }
+        document.addEventListener('mousedown', handleClick);
+        // return function to be called when unmounted
+        return () => {
+        document.removeEventListener('mousedown', handleClick);
+        };
     });
 
     useEffect(() => {
@@ -49,6 +55,14 @@ const ConnectionContainer: React.FC = () => {
             userContext.setAuthUser(userInfoQueryState.data.user);
         }
     });
+
+    const handleClick = (e: MouseEvent) => {
+    if(node.current && node.current.contains(e.target as Node)) {
+        return;
+    }
+    setShowModalSignUp(false);
+    setShowModalSignIn(false);
+    }
 
     /**
      * Ouvre le modal pour l'inscription de l'utilisateur.
@@ -116,7 +130,7 @@ const ConnectionContainer: React.FC = () => {
             {({ handleSubmit, handleChange, errors, values }) => (
                 <form noValidate onSubmit={handleSubmit}>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
-                        <div className="relative w-auto my-6 mx-auto max-w-sm">
+                        <div className="relative w-auto my-6 mx-auto max-w-sm" ref={node}>
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
@@ -210,12 +224,12 @@ const ConnectionContainer: React.FC = () => {
             {({ handleSubmit, handleChange, errors, values }) => (
                 <form noValidate onSubmit={handleSubmit}>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
-                        <div className="relative w-auto my-6 mx-auto max-w-sm">
+                        <div className="relative w-auto my-6 mx-auto max-w-sm" ref={node}>
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                                    <h3 className="text-3xl font-semibold">Connection</h3>
+                                    <h3 className="text-3xl font-semibold">Connexion</h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                         onClick={() => setShowModalSignIn(false)}>

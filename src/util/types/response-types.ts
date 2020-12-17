@@ -43,6 +43,16 @@ export interface QuestionResponse extends Response {
 }
 
 /**
+ * Quesion response data interface.
+ * 
+ * This API response is returned by `GET /questions`.
+ */
+export interface GetQuestionResponse extends Response {
+    question: QuestionData;
+}
+
+
+/**
  * Signin response data interface.
  * 
  * This API response is returned by `POST /auth/signin`.
@@ -70,6 +80,16 @@ export interface SignUpResponse extends Response {
 export interface CreateGameResponse extends Response {
     id: string;
 }
+
+/**
+ * Get game response data interface.
+ * 
+ * This API response is returned by `GET /games/:id`.
+ */
+export interface GetGameResponse extends Response {
+    game: GameData;
+}
+
 /**
  * Theme response data interface.
  * 
