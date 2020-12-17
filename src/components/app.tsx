@@ -8,6 +8,7 @@ import { HomePage } from './home-page/home-page';
 import { Navbar } from './navbar/navbar';
 import WebsocketProvider from './context-providers/websocket-provider';
 import { UserBackOffice } from './back-office/back-office-user/back-office-user-container';
+import GamePage from './lobby/game/game-page';
 
 const App: React.FC = () => {
   return (

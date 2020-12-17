@@ -37,6 +37,7 @@ export interface StartClientToServer {
 
 export interface StartServerToClient {
     imgBase64: string;
+    questionId: string;
 }
 
 export interface AnswerClientToServer {
@@ -48,6 +49,7 @@ export interface AnswerClientToServer {
 
 export interface AnswerServerToClient {
     correct: boolean;
+    nextQuestionId: string;
     imgBase64: string;
 }
 

@@ -43,6 +43,16 @@ export interface QuestionResponse extends Response {
 }
 
 /**
+ * Quesion response data interface.
+ * 
+ * This API response is returned by `GET /questions`.
+ */
+export interface GetQuestionResponse extends Response {
+    question: QuestionData;
+}
+
+
+/**
  * Signin response data interface.
  * 
  * This API response is returned by `POST /auth/signin`.
