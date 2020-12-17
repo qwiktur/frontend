@@ -20,7 +20,7 @@ const PlayerList: React.FC<IPlayerListProps> = (props) => {
             <div className="text-xl font-bold text-gray-700">Lobby de {props.listPlayers[0].username}</div>
             <div className="text-sm font-base text-gray-500">En attente de joueurs...</div>
           </div>
-          {/*Toggle private / public */}
+          {/*Toggle private / public 
           <div>
             <div className="flex items-center justify-center w-full  shadow-md rounded-full">
               <label
@@ -44,6 +44,7 @@ const PlayerList: React.FC<IPlayerListProps> = (props) => {
               </label>
             </div>
           </div>
+          */}
         </div>
         {/* List of players */}
         <div className="px-6">
