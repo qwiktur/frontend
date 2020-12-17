@@ -17,7 +17,7 @@ const GamePage: React.FC<IGamePage> = (props) => {
         <QuestionsComponent game={props.game} imgBase64={props.imgBase64} onAnswer={props.onAnswer} question={props.question} />
       </div>
       <div className="w-1/4 mt-16 -ml-8">
-        <div className="mb-2 bg-white border-solid border-grey-light rounded border shadow-lg">
+        <div className="mb-2 bg-white border-solid border-grey-light rounded-lg border shadow-lg">
           <div className="bg-grey-lighter px-2 py-3 text-center">
             Réponse à l'image
           </div>

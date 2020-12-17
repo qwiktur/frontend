@@ -18,8 +18,8 @@ const QuestionsComponent: React.FC<IGamePage> = (props) => {
 
   return (
     <div className="flex flex-row justify-center mt-16">
-      <div className="bg-white border-b-4 border-green-500 w-4/5">
-        <img src={props.imgBase64} alt="People" className="w-full object-cover h-32 sm:h-72 md:h-96" />
+      <div className="bg-white border-b-4 border-green-500 w-4/5 shadow-lg rounded-lg">
+        <img src={props.imgBase64} alt="People" className="w-full object-cover h-32 sm:h-72 md:h-96 rounded-lg" />
         <div className="p-4 md:p-6">
           <p className="text-green-500 font-semibold text-xs mb-1 leading-none">{props.game.theme.name}</p>
           <h3 className="font-semibold mb-2 text-xl leading-tight sm:leading-normal">{props.question.title}</h3>
