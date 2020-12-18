@@ -122,7 +122,6 @@ const ConnectionContainer: React.FC = () => {
      * Modal d'inscription.
      */
     const signUpModal = (
-        // TODO Créer le modal d'inscription.
         <Formik
             initialValues={{ email: '', username: '', password: '', passwordConfirmation: '' }}
             validationSchema={signUpFormValidationSchema}
