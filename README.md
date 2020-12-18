@@ -21,9 +21,9 @@ Qwiktur est un jeu à plusieus, le nombre de joueur est ilimité. Le premier à 
 * Yup (librairie de validation d'un formulaire)
 
 ### Qwiktur est un projet étudiant développé par:
-* [Miki Namsrai]https://github.com/Faichyer
-* [Michel Rodrigues]https://github.com/RM-04
-* [Théo Schmidt]https://github.com/Rocknologie
-* [Jérémy Surieux]https://github.com/Lelberto
+* [Miki Namsrai](https://github.com/Faichyer)
+* [Michel Rodrigues](https://github.com/RM-04)
+* [Théo Schmidt](https://github.com/Rocknologie)
+* [Jérémy Surieux](https://github.com/Lelberto)
 
 A bientôt sur Qwiktur !
