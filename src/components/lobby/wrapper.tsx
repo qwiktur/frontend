@@ -33,6 +33,7 @@ function Wrapper(): JSX.Element {
   const [getNextQuestionQueryState, getNextQuestionQuery] = useFetch<GetQuestionResponse>(null);
   const [nextQuestion, setNextQuestion] = useState<QuestionData>(null);
   const [winner, setWinner] = useState<boolean>(false);
+  const [answerValid, setAnswerValid] = useState<boolean>(null);
 
   useEffect(() => {
     if (!authContext.isAuthenticated) {
@@ -60,6 +61,7 @@ function Wrapper(): JSX.Element {
 
     socket.on(SocketEvent.ANSWER, (data: AnswerServerToClient) => {
       setImgBase64(data.imgBase64);
+      setAnswerValid(data.correct);
       getNextQuestionQuery.get(`${Config.API_URL}/questions/${data.nextQuestionId}`);
     })
 
@@ -145,7 +147,7 @@ function Wrapper(): JSX.Element {
 
       case 2: elements = (
         <>
-         {currentGame && nextQuestion? <GamePage game={currentGame} imgBase64={imgBase64} onAnswer={handleClickButtonAnswer} onAnswerImage={handleAnswerImage} question={nextQuestion} /> : null}
+         {currentGame && nextQuestion? <GamePage game={currentGame} imgBase64={imgBase64} onAnswer={handleClickButtonAnswer} answerValid={answerValid} onAnswerImage={handleAnswerImage} question={nextQuestion} /> : null}
         </>
       );
       break;
