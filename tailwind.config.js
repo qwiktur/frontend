@@ -10,6 +10,9 @@ module.exports = {
                     dark: '#006600',
                 }
             },
+            animation: {
+                'spin-slow': 'spin 3s linear infinite',
+            },
             fontFamily: {
                 'montserrat': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif']
             }
