@@ -50,7 +50,7 @@ export const DashboardBackOffice: React.FC = () => {
     }
 
     return (
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-7 gap-4 mt-10">
             <div className="col-start-1 col-end-2"><DashboardMenu onShow={handleShowData} /></div>
             <div className="col-start-2 col-end-6">
                 {showLastGames ?

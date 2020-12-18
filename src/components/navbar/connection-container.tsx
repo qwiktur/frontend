@@ -7,6 +7,7 @@ import { Config } from '../../util/config';
 import { SignInResponse, SignUpResponse, UserInfoResponse } from '../../util/types/response-types';
 import { LocalStorageKey } from '../../util/local-storage';
 import { SignInFormValues } from '../../util/types/form-data-types';
+import { ButtonComponent } from '../common/button';
 
 /**
  * Valeur utilisé pour le formulaire d'inscription.
@@ -19,7 +20,7 @@ interface SignUpFormValues {
 }
 
 const ConnectionContainer: React.FC = () => {
-    const node= useRef<HTMLDivElement>(null);
+    const node = useRef<HTMLDivElement>(null);
     const userContext = useContext(AuthenticationContext);
     const [showModalSignIn, setShowModalSignIn] = useState(false);
     const [showModalSignUp, setShowModalSignUp] = useState(false);
@@ -37,7 +38,7 @@ const ConnectionContainer: React.FC = () => {
         document.addEventListener('mousedown', handleClick);
         // return function to be called when unmounted
         return () => {
-        document.removeEventListener('mousedown', handleClick);
+            document.removeEventListener('mousedown', handleClick);
         };
     });
 
@@ -57,11 +58,11 @@ const ConnectionContainer: React.FC = () => {
     });
 
     const handleClick = (e: MouseEvent) => {
-    if(node.current && node.current.contains(e.target as Node)) {
-        return;
-    }
-    setShowModalSignUp(false);
-    setShowModalSignIn(false);
+        if (node.current && node.current.contains(e.target as Node)) {
+            return;
+        }
+        setShowModalSignUp(false);
+        setShowModalSignIn(false);
     }
 
     /**
@@ -121,7 +122,6 @@ const ConnectionContainer: React.FC = () => {
      * Modal d'inscription.
      */
     const signUpModal = (
-        // TODO Créer le modal d'inscription.
         <Formik
             initialValues={{ email: '', username: '', password: '', passwordConfirmation: '' }}
             validationSchema={signUpFormValidationSchema}
@@ -194,15 +194,8 @@ const ConnectionContainer: React.FC = () => {
                                 </div>
                                 {/*footer*/}
                                 <div className="w-full text-center mx-auto border-t border-solid border-gray-300">
-                                    <button onClick={() => setShowModalSignIn(false)}
-                                        className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline">
-                                        Fermer</button>
-                                    <button onClick={handleToggleSignInModal} className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        Se connecter
-                                        </button>
-                                    <button type="submit"
-                                        className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        S'inscrire</button>
+                                    <ButtonComponent value="Se connecter" onClick={handleToggleSignInModal} />
+                                    <ButtonComponent isSubmit={true} value="S'inscrire" />
                                 </div>
                             </div>
                         </div>
@@ -265,15 +258,8 @@ const ConnectionContainer: React.FC = () => {
 
                                 {/*footer*/}
                                 <div className="w-full text-center mx-auto border-t border-solid border-gray-300">
-                                    <button onClick={() => setShowModalSignIn(false)}
-                                        className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                        Fermer</button>
-                                    <button onClick={handleToggleSignUpModal}
-                                        className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        S'inscrire</button>
-                                    <button type="submit" className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        Se connecter
-                                        </button>
+                                    <ButtonComponent value="S'inscrire" onClick={handleToggleSignUpModal} />
+                                    <ButtonComponent isSubmit={true} value="Se connecter" />
                                 </div>
                             </div>
                         </div>
@@ -284,11 +270,7 @@ const ConnectionContainer: React.FC = () => {
     )
     return (
         <>
-            <div className="cursor-pointer hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                <a onClick={handleToggleSignUpModal} className=" ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-light hover:bg-green-dark">
-                    Se connecter
-                </a>
-            </div>
+            <ButtonComponent onClick={handleToggleSignUpModal} value="Se connecter" />
             {showModalSignIn ? signInModal : null}
             {showModalSignUp ? signUpModal : null}
         </>

@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { ThemeData } from '../../../../util/types/data-types';
 import { ThemeFormData } from '../../../../util/types/form-data-types';
+import { ButtonComponent } from '../../../common/button';
 
 interface ThemeModalProps {
     show: boolean;
@@ -59,16 +60,10 @@ export const ThemeModal: React.FC<ThemeModalProps> = (props) => {
                                 {/*footer*/}
                                 <div className="w-full text-center mx-auto border-t border-solid border-gray-300">
                                     {props.theme != null ?
-                                        <button onClick={() => props.onDeleteTheme(props.theme)}
-                                            className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                            Supprimer le thème</button>
+                                        <ButtonComponent value="Supprimer le thème" onClick={() => props.onDeleteTheme(props.theme)} />
                                         : <></>}
-                                    <button onClick={() => props.onHide('theme')}
-                                        className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                        Fermer</button>
-                                    <button type="submit" className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        Valider
-                                </button>
+                                    <ButtonComponent value="Fermer" onClick={props.onHide} />
+                                    <ButtonComponent isSubmit={true} value="Valider" />
                                 </div>
                             </div>
                         </div>

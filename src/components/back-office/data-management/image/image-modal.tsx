@@ -3,13 +3,14 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { ImageData, ThemeData } from '../../../../util/types/data-types';
 import { ImageFormData } from '../../../../util/types/form-data-types';
+import { ButtonComponent } from '../../../common/button';
 
 interface ImageModalProps {
     image: ImageData;
     show: boolean;
     themes: ThemeData[];
     onDeleteImage: (image: ImageData) => void;
-    onHide: (value: string) => void;
+    onHide: () => void;
     onImageSubmit: (image: ImageData, values: ImageFormData) => void;
 }
 
@@ -41,7 +42,7 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
                                     <h3 className="text-3xl font-semibold"> {props.image == null ? 'Nouvelle image' : 'Modifier une image'}</h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        onClick={() => props.onHide('image')}>
+                                        onClick={props.onHide}>
                                         <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
                                     </button>
                                 </div>
@@ -85,16 +86,15 @@ export const ImageModal: React.FC<ImageModalProps> = (props) => {
                                 {/*footer*/}
                                 <div className="w-full text-center mx-auto border-t border-solid border-gray-300">
                                     {props.image != null ?
-                                        <button onClick={() => props.onDeleteImage(props.image)}
-                                            className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                            Supprimer l'image</button>
+                                        // <button onClick={() => props.onDeleteImage(props.image)}
+                                        //     className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
+                                        //     Supprimer l'image</button>
+                                        <ButtonComponent value="Supprimer l'image" onClick={() => props.onDeleteImage(props.image)} />
                                         : <></>}
-                                    <button onClick={() => props.onHide('image')}
-                                        className="border border-red-700 bg-red-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                        Fermer</button>
-                                    <button type="submit" className="border border-green-dark bg-green-light text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-dark focus:outline-none focus:shadow-outline">
-                                        Valider
-                                        </button>
+                                    <>
+                                        <ButtonComponent value="Fermer" onClick={props.onHide} />
+                                        <ButtonComponent isSubmit={true} value="Valider" />
+                                    </>
                                 </div>
                             </div>
                         </div>

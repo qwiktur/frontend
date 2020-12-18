@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/fetch-hook';
 import { Config } from '../../../util/config';
-import { SearchBarComponent } from './searchbar-component';
+import { SearchBarComponent } from '../../common/searchbar-component';
 import { TableComponent } from './user-table-component';
 import { UsersResponse } from '../../../util/types/response-types';
 import { NumberUserComponent } from './number-user-component';
@@ -19,13 +19,13 @@ export const UserBackOffice: React.FC = () => {
      * 
      * @param value Filtre for search for a user.
      */
-    const handleChangeSearchUser = (value: string) => {
+    const handleSearchUser = (value: string) => {
         setSearch(value);
     }
 
     return (
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
-            <SearchBarComponent onSearchUser={handleChangeSearchUser} />  {/* Barre de recherche */}
+            <SearchBarComponent onSearch={handleSearchUser} />  {/* Barre de recherche */}
 
             <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
                 <TableComponent users={usersQueryState.fetched ?
