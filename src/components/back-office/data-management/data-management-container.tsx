@@ -27,26 +27,36 @@ export const DataManagementContainer: React.FC = () => {
     const [themeUpdateQueryState, themeUpdateQuery] = useFetch(`${Config.API_URL}/themes`);
     const [image, setImage] = useState<ImageData>(null);
     const [theme, setTheme] = useState<ThemeData>(null);
-    const [search, setSearch] = useState('');
+    // const [search, setSearch] = useState('');
     const [showImageData, setShowImageData] = useState<boolean>(false);
     const [showQuestionData, setShowQuestionData] = useState<boolean>(false);
     const [showThemeData, setShowThemeData] = useState<boolean>(false);
     const [showImageModal, setShowImageModal] = useState<boolean>(false);
     const [showThemeModal, setShowThemeModal] = useState<boolean>(false);
-    const [filterTheme, setFilterTheme] = useState<string>('');
+    // const [filterTheme, setFilterTheme] = useState<string>('');
 
+    // Fetch toutes les images.
     useEffect(() => {
         if (!imageQueryState.fetched) {
             imageQuery.get();
         }
+        setShowImageData(true);
+    }, []);
+
+    // Fetch toutes les questions.
+    useEffect(() => {
         if (!questionQueryState.fetched) {
             questionQuery.get();
         }
+    }, []);
+
+    // Fetch tous les thèmes.
+    useEffect(() => {
         if (!themeQueryState.fetched) {
             themeQuery.get();
         }
-        setShowImageData(true);
     }, []);
+
 
     useEffect(() => {
         if (themeUpdateQueryState.fetched) {
@@ -64,21 +74,20 @@ export const DataManagementContainer: React.FC = () => {
      * Méthode pour buffer la recherche d'élément.
      * @param value  search
      */
-    const handleOnSearch = (value: string) => {
-        setFilterTheme('');
-        setSearch(value);
-    }
+    // const handleOnSearch = (value: string) => {
+
+    //     setFilterTheme('');
+    //     setSearch(value);
+    // }
 
     /**
      * Méthode pour filtrer sur un thème.
      * @param value Thème sélectionné.
      */
-    const handleFilterTheme = (theme: string) => {
-        console.log(theme);
-        setSearch('');
-        setFilterTheme(theme);
-        console.log('oyui' + filterTheme);
-    }
+    // const handleFilterTheme = (theme: string) => {
+    //     setSearch('');
+    //     setFilterTheme(theme);
+    // }
 
     /**
      * Affiche les données grave au bouton. 
@@ -102,7 +111,7 @@ export const DataManagementContainer: React.FC = () => {
                 setShowThemeData(true);
                 break;
         }
-        setSearch('');
+        // setSearch('');
     }
 
     const handleShowImageModal = () => {
@@ -127,7 +136,7 @@ export const DataManagementContainer: React.FC = () => {
      * @param values Objet d'une image avant sa création.
      */
     const handleImageSubmit = (image: ImageData, values: ImageFormData) => {
-        setSearch('');
+        // setSearch('');
         const body = {
             theme: values.theme,
             title: values.title,
@@ -137,9 +146,11 @@ export const DataManagementContainer: React.FC = () => {
         if (image == null) {
             imageQuery.post(null, body);
             setShowImageModal(false);
+            imageQuery.get();
         } else {
             imageQuery.patch(`${Config.API_URL}/images/${image.id}`, body);
             setShowImageModal(false);
+            imageQuery.get();
         }
     }
 
@@ -156,9 +167,11 @@ export const DataManagementContainer: React.FC = () => {
         if (theme == null) {
             themeQuery.post(null, body);
             setShowThemeModal(false);
+            themeQuery.get();
         } else {
             themeQuery.patch(`${Config.API_URL}/themes/${theme.id}`, body);
             setShowThemeModal(false);
+            themeQuery.get();
         }
     }
 
@@ -187,6 +200,7 @@ export const DataManagementContainer: React.FC = () => {
     const handleImageDelete = (image: ImageData) => {
         if (image != null) {
             imageQuery.delete(`${Config.API_URL}/images/${image.id}`);
+            imageQuery.get();
             setShowImageModal(false);
         }
     }
@@ -197,7 +211,8 @@ export const DataManagementContainer: React.FC = () => {
     */
     const handleThemeDelete = (theme: ThemeData) => {
         if (theme != null) {
-            themeQuery.delete(`${Config.API_URL}/themes/${theme.id}`);
+            themeQuery.delete(`${Config.API_URL}/themes/${theme.id}`);            
+            themeQuery.get();
             setShowThemeModal(false);
         }
     }
