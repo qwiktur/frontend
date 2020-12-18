@@ -8,7 +8,7 @@ export const HomePage: React.FC = () => {
     return (
         <>
             <div className="flex flex-row w-full">
-                <div className ="w-1/4 mt-56 ml-16">
+                <div className ="w-1/4 mt-64 ml-16">
                     <div className="flex flex-col items-center ">
                         {/* Title */}
                         <div className="text-left w-80">
@@ -38,7 +38,8 @@ export const HomePage: React.FC = () => {
                                 Jouez dès maintenant !
                             </div>
                         </div>
-                        {/* Buttons */}
+                        {/* Buttons
+                        
                         <div>
                             <button className="bg-green-500 hover:bg-green-700 text-white rounded-sm w-36 h-12 text-lg font-bold overflow-visible mt-6 -ml-2">
                                 Jouer
@@ -47,6 +48,8 @@ export const HomePage: React.FC = () => {
                                 Règles du jeu
                             </button>
                         </div>
+
+                         */}
                     </div>
                 </div>
                 <div className ="w-3/4 mt-36 ml-6">
