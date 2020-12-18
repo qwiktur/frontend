@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/fetch-hook';
-import { AddImageButton } from './image/add-image-button';
-import { AddThemeButton } from './theme/add-theme-button';
 import { Config } from '../../../util/config';
 import { DropdownData } from './dropdown';
 import { ImageData, ThemeData } from '../../../util/types/data-types';
@@ -12,6 +10,10 @@ import { ImageTableComponent } from './image/image-table-component';
 import { QuestionTableComponent } from './question/question-table-component';
 import { ThemeModal } from './theme/theme-modal';
 import { ThemeTableComponent } from './theme/theme-table-component';
+import { SearchBarComponent } from '../../common/searchbar-component';
+import { ButtonComponent } from '../../common/button';
+import { FilterThemeComponent } from '../../common/filter-theme-component';
+import _ from 'lodash';
 
 /**
  * Fonctionnalité "gestion des données".
@@ -25,11 +27,13 @@ export const DataManagementContainer: React.FC = () => {
     const [themeUpdateQueryState, themeUpdateQuery] = useFetch(`${Config.API_URL}/themes`);
     const [image, setImage] = useState<ImageData>(null);
     const [theme, setTheme] = useState<ThemeData>(null);
+    const [search, setSearch] = useState('');
     const [showImageData, setShowImageData] = useState<boolean>(false);
     const [showQuestionData, setShowQuestionData] = useState<boolean>(false);
     const [showThemeData, setShowThemeData] = useState<boolean>(false);
     const [showImageModal, setShowImageModal] = useState<boolean>(false);
     const [showThemeModal, setShowThemeModal] = useState<boolean>(false);
+    const [filterTheme, setFilterTheme] = useState<string>('');
 
     useEffect(() => {
         if (!imageQueryState.fetched) {
@@ -47,16 +51,34 @@ export const DataManagementContainer: React.FC = () => {
     useEffect(() => {
         if (themeUpdateQueryState.fetched) {
             themeUpdateQuery.get();
-            handleToggleModal('theme');
         }
     }, [themeUpdateQueryState]);
 
     useEffect(() => {
         if (imageUpdateQueryState.fetched) {
             imageUpdateQuery.get();
-            handleToggleModal('image');
         }
     }, [imageUpdateQueryState]);
+
+    /**
+     * Méthode pour buffer la recherche d'élément.
+     * @param value  search
+     */
+    const handleOnSearch = (value: string) => {
+        setFilterTheme('');
+        setSearch(value);
+    }
+
+    /**
+     * Méthode pour filtrer sur un thème.
+     * @param value Thème sélectionné.
+     */
+    const handleFilterTheme = (theme: string) => {
+        console.log(theme);
+        setSearch('');
+        setFilterTheme(theme);
+        console.log('oyui' + filterTheme);
+    }
 
     /**
      * Affiche les données grave au bouton. 
@@ -80,28 +102,22 @@ export const DataManagementContainer: React.FC = () => {
                 setShowThemeData(true);
                 break;
         }
+        setSearch('');
     }
 
-    /**
-     * Affiche le modal d'ajout d'une donnée. 
-     * @param data Valeur du modal à afficher
-     */
-    const handleToggleModal = (data: string) => {
-        switch (data) {
-            case 'image':
-                if (!showImageModal) {
-                    setShowImageModal(true);
-                } else {
-                    setShowImageModal(false);
-                }
-                break;
-            case 'theme':
-                if (!showThemeModal) {
-                    setShowThemeModal(true);
-                } else {
-                    setShowThemeModal(false);
-                }
-                break;
+    const handleShowImageModal = () => {
+        if (!showImageModal) {
+            setShowImageModal(true);
+        } else {
+            setShowImageModal(false);
+        }
+    }
+
+    const handleShowThemeModal = () => {
+        if (!showThemeModal) {
+            setShowThemeModal(true);
+        } else {
+            setShowThemeModal(false);
         }
     }
 
@@ -111,6 +127,7 @@ export const DataManagementContainer: React.FC = () => {
      * @param values Objet d'une image avant sa création.
      */
     const handleImageSubmit = (image: ImageData, values: ImageFormData) => {
+        setSearch('');
         const body = {
             theme: values.theme,
             title: values.title,
@@ -189,22 +206,24 @@ export const DataManagementContainer: React.FC = () => {
         <>
             <div className="w-2/3 mx-auto mt-10">
                 <DropdownData onSetData={handleToggleData} />
-                <div>
+                <div className="bg-gray-200 rounded-lg p-5">
                     {showImageData ?
-                        <>
-                            <AddImageButton onClick={handleToggleModal} />
+                        <div >
+                            {/* <label>Filtre:</label>
+                            <div className="flex justify-center">
+                                <FilterThemeComponent filter={handleFilterTheme} themes={themeQueryState.fetched ? _.orderBy(themeQueryState.data.themes, [theme => theme.name.toLocaleLowerCase()], ['asc']) : []} />
+                                <SearchBarComponent onSearch={handleOnSearch} />
+                            </div> */}
+                            <ButtonComponent value="Ajouter une image" onClick={handleShowImageModal} />
                             <ImageTableComponent images={imageQueryState.fetched ? imageQueryState.data.images : []} onUpdateImage={handleImageSelect} />
-                        </> : <></>}
-                </div>
-                <div>
+                            {/* <ImageTableComponent images={imageQueryState.fetched ? imageQueryState.data.images.filter(image => image.theme.name.includes(filterTheme) || image.title.includes(search) ) : []} onUpdateImage={handleImageSelect} /> */}
+                        </div> : <></>}
                     {showQuestionData ?
                         <QuestionTableComponent questions={questionQueryState.fetched ? questionQueryState.data.questions : []} />
                         : <></>}
-
-                </div>
-                <div>
                     {showThemeData ?
-                        <><AddThemeButton onClick={handleToggleModal} />
+                        <>
+                            <ButtonComponent value="Ajouter un thème" onClick={handleShowThemeModal} />
                             <ThemeTableComponent themes={themeQueryState.fetched ? themeQueryState.data.themes : []} onUpdateTheme={handleThemeSelect} />
                         </> : <></>}
                 </div>
@@ -215,7 +234,7 @@ export const DataManagementContainer: React.FC = () => {
                     show={showImageModal}
                     themes={themeQueryState.fetched ? themeQueryState.data.themes : null}
                     onDeleteImage={handleImageDelete}
-                    onHide={handleToggleModal}
+                    onHide={handleShowImageModal}
                     onImageSubmit={handleImageSubmit}
                 />
                 : <></>}
@@ -224,7 +243,7 @@ export const DataManagementContainer: React.FC = () => {
                     show={showThemeModal}
                     theme={theme}
                     onDeleteTheme={handleThemeDelete}
-                    onHide={handleToggleModal}
+                    onHide={handleShowThemeModal}
                     onThemeSubmit={handleThemeSubmit}
                 /> : <></>}
         </>
