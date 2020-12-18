@@ -69,6 +69,8 @@ function Wrapper(): JSX.Element {
       if (data.correct == true){
         setScreen(3);
         setWinner(true)
+      } else {
+        setAnswerValid(data.correct);
       }
     })
 
